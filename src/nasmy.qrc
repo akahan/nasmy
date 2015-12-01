@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/">
+        <file>resources/style.qss</file>
+        <file>resources/images/</file>
+        <file>resources/dashboard.qml</file>
+        <file>translations/nasmy_ru.qm</file>
+    </qresource>
+</RCC>

@@ -1,0 +1,11 @@
+[project]
+arch_id=1
+assembly_options=
+linking_options=
+name=@PROJECT_NAME@
+verbose_build=true
+
+[targets]
+1\files=src/main.asm
+1\name=@PROJECT_NAME@
+size=1
