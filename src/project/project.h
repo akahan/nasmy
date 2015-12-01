@@ -1,6 +1,6 @@
 /*
  * <one line to give the program's name and a brief idea of what it does.>
- * Copyright (C) 2015  <copyright holder> <email>
+ * Copyright (C) 2015  Roman Yusufkhanov r.yusufkhanov@gmail.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -36,7 +36,7 @@ class Project : public QObject {
         explicit Project( QObject* parent, QString absolute_path );
         ~Project();
 
-        inline const QString& name() const { return project_name; }
+        inline const QString& name() const { return m_name; }
         inline const QString& absolutePath() const { return absolute_path; }
         inline const QString& assemblyOptions() const { return assembly_options; }
         inline const QString& linkingOptions() const { return linking_options; }
@@ -44,7 +44,7 @@ class Project : public QObject {
         void open();
 
     private:
-        QString project_name;
+        QString m_name;
         QString absolute_path;
         int arch_id;
         QString assembly_options;

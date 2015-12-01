@@ -1,6 +1,6 @@
 /*
  * <one line to give the program's name and a brief idea of what it does.>
- * Copyright (C) 2015  <copyright holder> <email>
+ * Copyright (C) 2015  Roman Yusufkhanov r.yusufkhanov@gmail.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -39,14 +39,14 @@ void Project::open() {
 
     QSettings settings( absolute_path, QSettings::NativeFormat );
     settings.beginGroup( "project" );
-    project_name = settings.value( "name" ).toString();
+    m_name = settings.value( "name" ).toString();
     arch_id = settings.value( "arch_id" ).toInt();
     assembly_options = settings.value( "assembly_options" ).toString();
     linking_options = settings.value( "linking_options" ).toString();
     verbose_build = settings.value( "verbose_build" ).toBool();
     settings.endGroup();
 
-    QTreeWidgetItem* project_item = projectsTree->addProjectItem(project_name);
+    QTreeWidgetItem* project_item = projectsTree->addProjectItem( m_name );
 
     int size = settings.beginReadArray( "targets" );
     for ( int i = 0; i < size; ++i ) {

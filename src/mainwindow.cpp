@@ -1,6 +1,6 @@
 /*
  * <one line to give the library's name and an idea of what it does.>
- * Copyright (C) 2015  <copyright holder> <email>
+ * Copyright (C) 2015  Roman Yusufkhanov r.yusufkhanov@gmail.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -370,9 +370,10 @@ void MainWindow::updateMenus() {
     int tab_num = tabSources->currentIndex();
 
     if ( tab_num != -1 ) {
+        at_least_one_opened = true;
+
         FileController* fc = fileControllersList.at( tab_num );
         absolute_path = fc->absolutePath();
-        at_least_one_opened = true;
 
         bool modified = fc->editor()->document()->isModified();
         actionSaveFile->setEnabled( modified );
@@ -380,7 +381,7 @@ void MainWindow::updateMenus() {
         actionUndo->setEnabled( fc->editor()->document()->isUndoAvailable() );
         actionRedo->setEnabled( fc->editor()->document()->isRedoAvailable() );
 
-        setWindowTitle( QString( "%1 - [ %2 [*]] - %3" ).arg( "project" ).arg( fc->title() ).arg( qApp->applicationDisplayName() ) );
+        setWindowTitle( QString( "[ %1:%2 [*]] - %3" ).arg( "project" ).arg( fc->title() ).arg( qApp->applicationDisplayName() ) );
     }
 
     actionSaveAs->setEnabled( at_least_one_opened );
