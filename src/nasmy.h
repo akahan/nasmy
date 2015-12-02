@@ -1,6 +1,6 @@
 /*
  * <one line to give the library's name and an idea of what it does.>
- * Copyright (C) 2015  Roman Yusufkhanov r.yusufkhanov@gmail.com
+ * Copyright (C) 2015  Roman Yusufkhanov <r.yusufkhanov@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,13 +21,38 @@
 #define NASMY_H
 
 #include "mainwindow.h"
+#include "project/projectscontroller.h"
+#include "editor/filescontroller.h"
+
+#include <QMessageBox>
+#include <QApplication>
+#include <QObject>
 
 class QWidget;
+
+#define AppName qApp->applicationDisplayName()
+#define MsgButton QMessageBox::StandardButton
+#define MsgButtons QMessageBox::StandardButtons
 
 namespace Nasmy {
     extern QWidget* nasmy_ui;
 
     MainWindow* mainwindow();
+    ProjectsController* pc();
+    FilesController* fc();
+
+    MsgButton question( const QString& text,
+        MsgButtons buttons = MsgButtons(QMessageBox::Yes | QMessageBox::No),
+        MsgButton defaultButton = QMessageBox::NoButton );
+    MsgButton warning( const QString& text,
+        MsgButtons buttons = QMessageBox::Ok,
+        MsgButton defaultButton = QMessageBox::NoButton );
+    MsgButton critical( const QString& text,
+        MsgButtons buttons = QMessageBox::Ok,
+        MsgButton defaultButton = QMessageBox::NoButton );
+    MsgButton information( const QString& text,
+        MsgButtons buttons = QMessageBox::Ok,
+        MsgButton defaultButton = QMessageBox::NoButton );
 }
 
 #endif // NASMY_H
