@@ -1,6 +1,6 @@
 /*
  * <one line to give the program's name and a brief idea of what it does.>
- * Copyright (C) 2015  Roman Yusufkhanov r.yusufkhanov@gmail.com
+ * Copyright (C) 2015  Roman Yusufkhanov <r.yusufkhanov@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,35 +17,31 @@
  *
  */
 
-#include "filecontroller.h"
-#include <QDebug>
-#include <QCompleter>
-#include <QStandardItemModel>
-#include <QApplication>
-#include <QRegExp>
-#include <QStringListModel>
-#include <QUrl>
-#include <QDir>
-#include <QMessageBox>
-#include <QFileDialog>
-#include <QCheckBox>
-#include <QMessageBox>
-
-// #include "completerpopupmodel.h"
+#include "file.h"
+#include "nasmy.h"
 #include "asmedit.h"
-#include "mainwindow.h"
+// #include "completerpopupmodel.h"
 
-FileController::FileController( MainWindow* parent, QString absolute_path ) : QObject( parent ) {
-    asm_edit = new AsmEdit( parent );
+#include <QFileInfo>
+// #include <QStandardItemModel>
+// #include <QApplication>
+// #include <QRegExp>
+// #include <QStringListModel>
+// #include <QUrl>
+#include <QDir>
+#include <QtDebug>
+
+File::File( QObject* parent, QString absolute_path ) : QObject( parent ) {
+    asm_edit = new AsmEdit( Nasmy::mainwindow() );
 
     setAbsolutePath(absolute_path);
 }
 
-FileController::~FileController() {
+File::~File() {
     delete asm_edit;
 }
 
-void FileController::setAbsolutePath(const QString& value) {
+void File::setAbsolutePath(const QString& value) {
     absolute_path = value;
     if ( !absolute_path.isEmpty() ) {
         title_str = QFileInfo( absolute_path ).fileName();
@@ -59,7 +55,7 @@ void FileController::setAbsolutePath(const QString& value) {
     }
 }
 
-void FileController::open() {
+void File::open() {
     QFile file( absolute_path );
     if ( !file.open( QFile::ReadOnly | QFile::Text ) ) {
         throw file.errorString();
@@ -72,7 +68,7 @@ void FileController::open() {
     }
 }
 
-void FileController::save() {
+void File::save() {
     QFile file( absolute_path );
 
     if ( !file.open( QFile::WriteOnly | QFile::Text ) ) {
@@ -85,7 +81,7 @@ void FileController::save() {
     asm_edit->document()->setModified( false );
 }
 
-void FileController::setConnectionsToEditor() {
+void File::setConnectionsToEditor() {
 //     asm_edit->disconnect();
 }
 

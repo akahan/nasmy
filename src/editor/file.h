@@ -1,6 +1,6 @@
 /*
  * <one line to give the program's name and a brief idea of what it does.>
- * Copyright (C) 2015  Roman Yusufkhanov r.yusufkhanov@gmail.com
+ * Copyright (C) 2015  Roman Yusufkhanov <r.yusufkhanov@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,12 +17,11 @@
  *
  */
 
-#ifndef FILECONTROLLER_H
-#define FILECONTROLLER_H
+#ifndef FILE_H
+#define FILE_H
 
 #include <QObject>
 
-class MainWindow;
 class QString;
 class Highlighter;
 class QStandardItem;
@@ -31,12 +30,12 @@ class QCompleter;
 class QStringListModel;
 class AsmEdit;
 
-class FileController : public QObject {
+class File : public QObject {
     Q_OBJECT
 
     public:
-        explicit FileController( MainWindow* parent, QString absolute_path = "" );
-        ~FileController();
+        explicit File( QObject* parent, QString absolute_path = "" );
+        ~File();
 
         inline const QString& title() const { return title_str; }
         inline const QString& absolutePath() const { return absolute_path; }
@@ -60,4 +59,4 @@ class FileController : public QObject {
         AsmEdit* asm_edit;
 };
 
-#endif // FILECONTROLLER_H
+#endif // FILE_H
