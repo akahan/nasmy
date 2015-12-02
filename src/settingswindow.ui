@@ -2012,8 +2012,6 @@
             </widget>
            </item>
           </layout>
-          <zorder>treeSyntax</zorder>
-          <zorder>treeCommon</zorder>
          </widget>
          <widget class="QWidget" name="tabSyntax">
           <attribute name="title">
@@ -2056,7 +2054,8 @@
                <string>Foreground color</string>
               </property>
               <property name="icon">
-               <iconset theme="format-text-color"/>
+               <iconset theme="format-text-color">
+                <normaloff>.</normaloff>.</iconset>
               </property>
              </column>
              <column>
@@ -2067,7 +2066,8 @@
                <string>Background color</string>
               </property>
               <property name="icon">
-               <iconset theme="format-fill-color"/>
+               <iconset theme="format-fill-color">
+                <normaloff>.</normaloff>.</iconset>
               </property>
              </column>
              <column>
@@ -2078,7 +2078,8 @@
                <string>Bold font</string>
               </property>
               <property name="icon">
-               <iconset theme="format-text-bold"/>
+               <iconset theme="format-text-bold">
+                <normaloff>.</normaloff>.</iconset>
               </property>
              </column>
              <column>
@@ -2089,7 +2090,8 @@
                <string>Italic font</string>
               </property>
               <property name="icon">
-               <iconset theme="format-text-italic"/>
+               <iconset theme="format-text-italic">
+                <normaloff>.</normaloff>.</iconset>
               </property>
              </column>
              <column>
@@ -2100,7 +2102,8 @@
                <string>Underline font</string>
               </property>
               <property name="icon">
-               <iconset theme="format-text-underline"/>
+               <iconset theme="format-text-underline">
+                <normaloff>.</normaloff>.</iconset>
               </property>
              </column>
              <column>
@@ -2111,7 +2114,8 @@
                <string>Strikethrough font</string>
               </property>
               <property name="icon">
-               <iconset theme="format-text-strikethrough"/>
+               <iconset theme="format-text-strikethrough">
+                <normaloff>.</normaloff>.</iconset>
               </property>
              </column>
             </widget>
@@ -2138,7 +2142,4 @@
  <slots>
   <slot>onButtonGroupClicked(QAbstractButton*)</slot>
  </slots>
- <buttongroups>
-  <buttongroup name="buttonGroup_3"/>
- </buttongroups>
 </ui>

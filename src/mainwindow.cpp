@@ -1,6 +1,6 @@
 /*
  * <one line to give the library's name and an idea of what it does.>
- * Copyright (C) 2015  Roman Yusufkhanov r.yusufkhanov@gmail.com
+ * Copyright (C) 2015  Roman Yusufkhanov <r.yusufkhanov@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,8 +19,16 @@
 
 #include "nasmy.h"
 #include "mainwindow.h"
+#include "about.h"
+#include "settingswindow.h"
+#include "project/projectwindow.h"
+#include "project/project.h"
+#include "project/projectstreeitem.h"
+#include "editor/asmedit.h"
+
+// #include "editor/syntax/highlighter.h"
+
 #include <QFileDialog>
-#include <QMessageBox>
 #include <QDebug>
 #include <QJsonDocument>
 #include <QJsonObject>
@@ -32,20 +40,6 @@
 
 // #include <QQuickWidget>
 // #include <QtQml/QQmlEngine>
-
-#include "about.h"
-#include "settingswindow.h"
-#include "project/projectwindow.h"
-#include "project/project.h"
-#include "editor/asmedit.h"
-#include "editor/filecontroller.h"
-
-#include "editor/syntax/highlighter.h"
-
-// MainWindow& MainWindow::instance() {
-//     static MainWindow m_instance;
-//     return m_instance;
-// }
 
 MainWindow::MainWindow( QWidget* parent ) : QMainWindow( parent ) {
     setupGlobals();
@@ -71,9 +65,6 @@ MainWindow::MainWindow( QWidget* parent ) : QMainWindow( parent ) {
 //     pal.setBrush(QPalette::HighlightedText, QColor(Qt::black));
 //     pal.setBrush(QPalette::Highlight, QColor(Qt::lightGray));
 //     errorView->setPalette(pal);
-
-//     connect(errorView, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(goToError(QListWidgetItem*)));
-    connect( QApplication::clipboard(), &QClipboard::dataChanged, this, &MainWindow::onClipboard_dataChanged );
 
     setupActions();
 
@@ -101,6 +92,9 @@ MainWindow::~MainWindow() {
 
 void MainWindow::setupGlobals() {
     Nasmy::nasmy_ui = this;
+
+    connect( Nasmy::fc(), &FilesController::fileLoaded, this, &MainWindow::onFilesController_fileLoaded );
+    connect( Nasmy::pc(), &ProjectsController::projectLoaded, this, &MainWindow::onProjectsController_projectLoaded );
 }
 
 void MainWindow::readSettings() {
@@ -184,6 +178,9 @@ void MainWindow::setupActions() {
         connect( recentProjectActions[i], &QAction::triggered, this, &MainWindow::onActionRecentProjectOpen_triggered );
         menuRecentProjects->insertAction( !i ? recentProjectSeparator : recentProjectActions[0], recentProjectActions[i] );
     }
+
+    //     connect(errorView, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(goToError(QListWidgetItem*)));
+    connect( QApplication::clipboard(), &QClipboard::dataChanged, this, &MainWindow::onClipboard_dataChanged );
 }
 
 void MainWindow::closeEvent( QCloseEvent* event ) {
@@ -203,8 +200,7 @@ void MainWindow::resizeEvent( QResizeEvent* event ) {
 
 bool MainWindow::maybeSave() {
     QMessageBox::StandardButton ret =
-        QMessageBox::question( this,
-            qApp->applicationDisplayName(),
+        Nasmy::question(
             tr( "The document was changed. Do you want to save changes?" ),
             QMessageBox::Cancel | QMessageBox::Discard | QMessageBox::Save,
             QMessageBox::Save
@@ -221,58 +217,21 @@ bool MainWindow::maybeSave() {
 }
 
 bool MainWindow::saveFile() {
-    FileController* fc = fileControllersList.at( tabSources->currentIndex() );
+    File* file = Nasmy::fc()->getFile( tabSources->currentIndex() );
 
     try {
-        fc->save();
+        file->save();
     }
     catch ( QString e ) {
-        QMessageBox::critical( this,
-            qApp->applicationDisplayName(),
-            tr( "Error write file %1:\n%2." ).arg( fc->absolutePath() ).arg( e )
-        );
-
+        Nasmy::critical( tr( "Error write file %1:\n%2." ).arg( file->absolutePath() ).arg( e ) );
         return false;
     }
 
-    pathLabel->setText( fc->absolutePath() );
+    pathLabel->setText( file->absolutePath() );
 
     statusBar()->showMessage( tr( "File saved" ), 2000 );
 
     return true;
-}
-
-FileController* MainWindow::newFileController( QString absolute_path ) {
-    FileController* fc = NULL;
-
-    try {
-        fc = new FileController( this, absolute_path );
-        if ( !absolute_path.isEmpty() ) {
-            fc->open();
-        }
-        fileControllersList.append( fc );
-    }
-    catch ( QString e ) {
-        QMessageBox::warning( this,
-            qApp->applicationDisplayName(),
-            tr( "Error reading file %1:\n%2." ).arg( absolute_path ).arg( e )
-        );
-
-        if( fc ) delete fc;
-        return NULL;
-    }
-
-    tabSources->addTab( fc->editor(), fc->title() );
-    tabSources->setCurrentWidget( fc->editor() );
-
-    connect( fc->editor()->document(), &QTextDocument::modificationChanged, this, &MainWindow::onTextDocument_modificationChanged );
-    connect( fc->editor(), &QPlainTextEdit::copyAvailable, actionCut, &QAction::setEnabled );
-    connect( fc->editor(), &QPlainTextEdit::copyAvailable, actionCopy, &QAction::setEnabled );
-
-    onTextDocument_modificationChanged( false );
-    fc->editor()->setFocus();
-
-    return fc;
 }
 
 void MainWindow::openFile( const QString& absolute_path ) {
@@ -296,39 +255,15 @@ void MainWindow::openFile( const QString& absolute_path ) {
     }
     else {
         //check if file is opened
-        for ( int i = 0; i < fileControllersList.size(); ++i ) {
-            if ( fileControllersList.at( i )->absolutePath() == absolute_path ) {
-                tabSources->setCurrentWidget( fileControllersList.at( i )->editor() );
-                return;
-            }
+        if ( File* f = Nasmy::fc()->getFile( absolute_path ) ) {
+            tabSources->setCurrentWidget( f->editor() );
+            return;
         }
 
-        newFileController( absolute_path );
+        Nasmy::fc()->loadFile( absolute_path );
 
         statusBar()->showMessage( tr( "File loaded" ), 2000 );
     }
-}
-
-Project * MainWindow::newProject( QString absolute_path ) {
-    Q_ASSERT( !absolute_path.isEmpty() );
-    Project * pc = NULL;
-
-    try {
-        pc = new Project( this, absolute_path );
-        pc->open();
-        projectsList.append( pc );
-    }
-    catch ( QString e ) {
-        QMessageBox::warning( this,
-                              qApp->applicationDisplayName(),
-                              tr( "Error reading project %1:\n%2." ).arg( absolute_path ).arg( e )
-        );
-
-        if ( pc ) delete pc;
-        return NULL;
-    }
-
-    return pc;
 }
 
 void MainWindow::openProject( const QString& absolute_path ) {
@@ -350,16 +285,13 @@ void MainWindow::openProject( const QString& absolute_path ) {
         path = absolute_path;
     }
 
-    //check if project is opened
-    foreach( Project * pc, projectsList ) {
-        if ( pc->absolutePath() == path ) {
-            statusBar()->showMessage( tr( "Project already loaded" ), 2000 );
-            return;
-        }
+    if (Nasmy::pc()->getProject( path )) {
+        statusBar()->showMessage( tr( "Project already loaded" ), 2000 );
     }
 
-    newProject( path );
+    Nasmy::pc()->loadProject( path );
 
+    //check if project is opened
     statusBar()->showMessage( tr( "Project loaded" ), 2000 );
 }
 
@@ -372,16 +304,16 @@ void MainWindow::updateMenus() {
     if ( tab_num != -1 ) {
         at_least_one_opened = true;
 
-        FileController* fc = fileControllersList.at( tab_num );
-        absolute_path = fc->absolutePath();
+        File* file = Nasmy::fc()->getFile(tab_num);
+        absolute_path = file->absolutePath();
 
-        bool modified = fc->editor()->document()->isModified();
+        bool modified = file->editor()->document()->isModified();
         actionSaveFile->setEnabled( modified );
         setWindowModified( modified );
-        actionUndo->setEnabled( fc->editor()->document()->isUndoAvailable() );
-        actionRedo->setEnabled( fc->editor()->document()->isRedoAvailable() );
+        actionUndo->setEnabled( file->editor()->document()->isUndoAvailable() );
+        actionRedo->setEnabled( file->editor()->document()->isRedoAvailable() );
 
-        setWindowTitle( QString( "[ %1:%2 [*]] - %3" ).arg( "project" ).arg( fc->title() ).arg( qApp->applicationDisplayName() ) );
+        setWindowTitle( QString( "[ %1:%2 [*]] - %3" ).arg( "project" ).arg( file->title() ).arg( AppName ) );
     }
 
     actionSaveAs->setEnabled( at_least_one_opened );
@@ -448,8 +380,8 @@ void MainWindow::updateRecentFileList() {
 }
 
 AsmEdit* MainWindow::currentEditor() {
-    FileController* fc = fileControllersList.at( tabSources->currentIndex() );
-    return fc->editor();
+    File* f = Nasmy::fc()->getFile( tabSources->currentIndex() );
+    return f->editor();
 }
 
 /*****************************************************************************************
@@ -457,10 +389,10 @@ AsmEdit* MainWindow::currentEditor() {
  ******************************************************************************************/
 
 void MainWindow::on_actionNewProject_triggered() {
-    ProjectWindow* frm = new ProjectWindow( this, true );
+    ProjectWindow* frm = new ProjectWindow( this );
     QString project_path = frm->exec_and_return_path();
     if ( !project_path.isEmpty() ) {
-        newProject( project_path );
+        Nasmy::pc()->loadProject( project_path );
     }
 }
 
@@ -554,7 +486,7 @@ void MainWindow::on_actionFormatFile_triggered() {
 }
 
 void MainWindow::on_actionNewFile_triggered() {
-    newFileController();
+    Nasmy::fc()->loadFile();
 }
 
 void MainWindow::on_actionOpenFile_triggered() {
@@ -580,7 +512,7 @@ void MainWindow::onActionRecentFileOpen_triggered() {
 bool MainWindow::on_actionSaveFile_triggered() {
     int currentIndex = tabSources->currentIndex();
 
-    if ( fileControllersList.at( currentIndex )->absolutePath().isEmpty() ) {
+    if ( Nasmy::fc()->getFile( currentIndex )->absolutePath().isEmpty() ) {
         return on_actionSaveAs_triggered();
     }
     else {
@@ -589,8 +521,8 @@ bool MainWindow::on_actionSaveFile_triggered() {
 }
 
 bool MainWindow::on_actionSaveAs_triggered() {
-    FileController* fc = fileControllersList.at( tabSources->currentIndex() );
-    QString absolute_path = fc->absolutePath();
+    File* file = Nasmy::fc()->getFile( tabSources->currentIndex() );
+    QString absolute_path = file->absolutePath();
 
     absolute_path =
         QFileDialog::getSaveFileName( this,
@@ -603,7 +535,7 @@ bool MainWindow::on_actionSaveAs_triggered() {
         return false;
     }
 
-    fc->setAbsolutePath( absolute_path );
+    file->setAbsolutePath( absolute_path );
     tabSources->setTabText( tabSources->currentIndex(), QFileInfo( absolute_path ).fileName() );
 
     return saveFile();
@@ -621,24 +553,22 @@ bool MainWindow::closeTabByIndex( const int index ) {
         return true;
     }
 
-    FileController* fc = fileControllersList.at( index );
+    File* file = Nasmy::fc()->getFile( index );
 
-    if ( fc->editor()->document()->isModified() ) {
+    if ( file->editor()->document()->isModified() ) {
         if ( !maybeSave() ) {
             return false;
         }
     }
 
-    fc->disconnect();
-
-    if ( !fc->absolutePath().isEmpty() ) {
-        if ( !closedFileNames.contains( fc->absolutePath() ) ) {
+    if ( !file->absolutePath().isEmpty() ) {
+        if ( !closedFileNames.contains( file->absolutePath() ) ) {
             //check size of closedFileNames before inserting new file name
             if ( closedFileNames.size() > MaxRecentFiles + 1 ) {
                 closedFileNames.removeFirst();
             }
 
-            closedFileNames.append( fc->absolutePath() );
+            closedFileNames.append( file->absolutePath() );
         }
 
         updateRecentFileList();
@@ -646,9 +576,9 @@ bool MainWindow::closeTabByIndex( const int index ) {
 
     tabSources->blockSignals( true );
 
-    fileControllersList.removeAt( index );
+    Nasmy::fc()->unloadFile( index );
+
     tabSources->removeTab( index );
-    delete fc;
 
     //set current previous tab
     if ( index > 0 ) {
@@ -716,6 +646,44 @@ void MainWindow::onClipboard_dataChanged() {
     if ( const QMimeData * md = QApplication::clipboard()->mimeData() ) {
         actionPaste->setEnabled( md->hasText() );
     }
+}
+
+void MainWindow::onFilesController_fileLoaded( File* file ) {
+    tabSources->addTab( file->editor(), file->title() );
+    tabSources->setCurrentWidget( file->editor() );
+
+    connect( file->editor()->document(), &QTextDocument::modificationChanged, this, &MainWindow::onTextDocument_modificationChanged );
+    connect( file->editor(), &QPlainTextEdit::copyAvailable, actionCut, &QAction::setEnabled );
+    connect( file->editor(), &QPlainTextEdit::copyAvailable, actionCopy, &QAction::setEnabled );
+
+    onTextDocument_modificationChanged( false );
+    file->editor()->setFocus();
+
+}
+
+void MainWindow::onProjectsController_projectLoaded(Project* p) {
+    setWindowTitle( QString( "%1 - %2" ).arg( p->name() ).arg( AppName ) );
+}
+
+void MainWindow::on_projectsTree_itemSelectionChanged() {
+//     projectsTree->selectedItems()
+    projectSettings->setEnabled(true);
+    addTarget->setEnabled(true);
+}
+
+void MainWindow::on_projectSettings_clicked(bool) {
+    if ( Project* p = dynamic_cast<ProjectItem*>(projectsTree->selectedItems().at(0))->project() ) {
+        ProjectWindow* frm = new ProjectWindow( this, p );
+        QString project_path = frm->exec_and_return_path();
+    }
+
+//     if ( !project_path.isEmpty() ) {
+//         Nasmy::pc()->loadProject( project_path );
+//     }
+}
+
+void MainWindow::on_addTarget_clicked(bool) {
+    Nasmy::information(QString("on_addTarget_clicked"));
 }
 
 void MainWindow::formatFile() {

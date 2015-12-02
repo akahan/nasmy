@@ -1,6 +1,6 @@
 /*
  * <one line to give the library's name and an idea of what it does.>
- * Copyright (C) 2015  Roman Yusufkhanov r.yusufkhanov@gmail.com
+ * Copyright (C) 2015  Roman Yusufkhanov <r.yusufkhanov@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,8 +31,6 @@ int main( int argc, char *argv[] ) {
     qtTranslator.load( ":/translations/nasmy_" + QLocale::system().name() );
     app.installTranslator( &qtTranslator );
 
-//     MainWindow& w = MainWindowInstance;
-//     w.show();
     MainWindow w;
     w.show();
 

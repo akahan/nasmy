@@ -1,6 +1,6 @@
 /*
  * <one line to give the library's name and an idea of what it does.>
- * Copyright (C) 2015  Roman Yusufkhanov r.yusufkhanov@gmail.com
+ * Copyright (C) 2015  Roman Yusufkhanov <r.yusufkhanov@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,10 +18,11 @@
  */
 
 #include "projectstreeitem.h"
+#include "project.h"
 
-ProjectItem::ProjectItem( QTreeWidget* parent, const QString& name ) : QTreeWidgetItem( parent ) {
+ProjectItem::ProjectItem( QTreeWidget* parent, Project* project ) : QTreeWidgetItem( parent ), m_project( project ) {
     setFlags( Qt::ItemIsSelectable | Qt::ItemIsDropEnabled | Qt::ItemIsEnabled );
-    setText( 0, name );
+    setText( 0, project->name() );
 
     QIcon icon;
     icon.addFile( QStringLiteral( ":/resources/images/target.svg" ), QSize(), QIcon::Normal, QIcon::On );

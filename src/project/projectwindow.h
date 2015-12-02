@@ -1,6 +1,6 @@
 /*
  * <one line to give the library's name and an idea of what it does.>
- * Copyright (C) 2015  Roman Yusufkhanov r.yusufkhanov@gmail.com
+ * Copyright (C) 2015  Roman Yusufkhanov <r.yusufkhanov@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,10 +24,12 @@
 
 #include "ui_projectwindow.h"
 
+class Project;
+
 class ProjectWindow : public QDialog, private Ui::ProjectWindow {
     Q_OBJECT
     public:
-        explicit ProjectWindow( QWidget* parent, bool is_new = false );
+        explicit ProjectWindow( QWidget* parent, Project* project = NULL );
         ~ProjectWindow();
 
         QString const exec_and_return_path();

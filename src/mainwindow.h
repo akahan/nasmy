@@ -1,6 +1,6 @@
 /*
  * <one line to give the program's name and a brief idea of what it does.>
- * Copyright (C) 2015  Roman Yusufkhanov r.yusufkhanov@gmail.com
+ * Copyright (C) 2015  Roman Yusufkhanov <r.yusufkhanov@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,12 +25,7 @@
 
 #include "ui_mainwindow.h"
 
-// #include "singleton.h"
-// #define MainWindowInstance Singleton<MainWindow>::instance()
-
-#define MainWindowInstance MainWindow::instance()
-
-class FileController;
+class File;
 class Project;
 class AsmEdit;
 // class QListWidgetItem;
@@ -72,14 +67,9 @@ class MainWindow : public QMainWindow, public Ui::MainWindow {
         void updateRecentFileList();
         void updateRecentProjectList();
 
-        QList<FileController*> fileControllersList;
-        FileController* newFileController( QString absolute_path = "" );
 
-        QList<Project*> projectsList;
-        Project* newProject( QString absolute_path );
-
-//     SearchPanel* searchPanel;
-//     int previousIndex;
+//         SearchPanel* searchPanel;
+//         int previousIndex;
 
         void openProject( const QString& absolute_path = "" );
         void openFile( const QString& absolute_path = "" );
@@ -140,6 +130,13 @@ class MainWindow : public QMainWindow, public Ui::MainWindow {
         void onActionRecentFileOpen_triggered();
         void onClipboard_dataChanged();
         void onTextDocument_modificationChanged( bool );
+
+        void onFilesController_fileLoaded(File*);
+
+        void onProjectsController_projectLoaded(Project*);
+        void on_projectsTree_itemSelectionChanged();
+        void on_projectSettings_clicked(bool);
+        void on_addTarget_clicked(bool);
 };
 
 #endif // MAINWINDOW_H

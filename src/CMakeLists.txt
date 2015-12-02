@@ -24,6 +24,7 @@ set(NASMY_SRC
     mainwindow.cpp
     settingswindow.cpp
     about.cpp
+    project/projectscontroller.cpp
     project/project.cpp
     project/projectwindow.cpp
     project/projectstree.cpp
@@ -31,7 +32,8 @@ set(NASMY_SRC
     debugger/registerslist.cpp
     debugger/watchestree.cpp
     editor/asmedit.cpp
-    editor/filecontroller.cpp
+    editor/file.cpp
+    editor/filescontroller.cpp
 #     editor/syntax/highlighter.cpp
 #     editor/completerpopupmodel.cpp
     qfileedit.cpp

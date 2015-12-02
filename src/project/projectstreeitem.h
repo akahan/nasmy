@@ -1,6 +1,6 @@
 /*
  * <one line to give the library's name and an idea of what it does.>
- * Copyright (C) 2015  Roman Yusufkhanov r.yusufkhanov@gmail.com
+ * Copyright (C) 2015  Roman Yusufkhanov <r.yusufkhanov@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,9 +22,15 @@
 
 #include <QTreeWidgetItem>
 
+class Project;
+
 class ProjectItem : public QTreeWidgetItem {
     public:
-        explicit ProjectItem( QTreeWidget* parent, const QString& name );
+        explicit ProjectItem( QTreeWidget* parent, Project* project );
+        inline Project* project() const { return m_project; };
+
+    private:
+        Project* m_project;
 };
 
 class TargetItem : public QTreeWidgetItem {

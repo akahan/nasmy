@@ -1,6 +1,6 @@
 /*
  * <one line to give the program's name and a brief idea of what it does.>
- * Copyright (C) 2015  Roman Yusufkhanov r.yusufkhanov@gmail.com
+ * Copyright (C) 2015  Roman Yusufkhanov <r.yusufkhanov@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,13 +18,14 @@
  */
 
 #include "project.h"
+#include "nasmy.h"
+
 #include <QSettings>
 #include <QObject>
 #include <QTreeWidgetItem>
 #include <QDir>
 #include <functional>
 
-#include "nasmy.h"
 
 Project::Project( QObject* parent, QString absolute_path ) : QObject( parent ), absolute_path( absolute_path ) {
     Q_ASSERT( !absolute_path.isEmpty() );
@@ -46,7 +47,7 @@ void Project::open() {
     verbose_build = settings.value( "verbose_build" ).toBool();
     settings.endGroup();
 
-    QTreeWidgetItem* project_item = projectsTree->addProjectItem( m_name );
+    QTreeWidgetItem* project_item = projectsTree->addProjectItem( this );
 
     int size = settings.beginReadArray( "targets" );
     for ( int i = 0; i < size; ++i ) {

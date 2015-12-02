@@ -1,6 +1,6 @@
 /*
  * <one line to give the program's name and a brief idea of what it does.>
- * Copyright (C) 2015  Roman Yusufkhanov r.yusufkhanov@gmail.com
+ * Copyright (C) 2015  Roman Yusufkhanov <r.yusufkhanov@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,6 +19,7 @@
 
 #include "projectstree.h"
 #include "projectstreeitem.h"
+#include "project.h"
 #include "mainwindow.h"
 
 ProjectsTree::ProjectsTree( QWidget* parent ) : QTreeWidget( parent ) {
@@ -30,8 +31,9 @@ ProjectsTree::ProjectsTree( QWidget* parent ) : QTreeWidget( parent ) {
 //     header()->resizeSection(1, 26);
 }
 
-QTreeWidgetItem * ProjectsTree::addProjectItem(const QString& name) {
-    QTreeWidgetItem* target = new ProjectItem( this, name );
+QTreeWidgetItem * ProjectsTree::addProjectItem(Project* p) {
+    QTreeWidgetItem* target = new ProjectItem( this, p );
+    target->setData( 0, Qt::UserRole, QVariant::fromValue(p) );
     addTopLevelItem( target );
     return target;
 }

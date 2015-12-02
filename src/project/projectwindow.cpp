@@ -1,6 +1,6 @@
 /*
  * <one line to give the library's name and an idea of what it does.>
- * Copyright (C) 2015  Roman Yusufkhanov r.yusufkhanov@gmail.com
+ * Copyright (C) 2015  Roman Yusufkhanov <r.yusufkhanov@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,6 +18,8 @@
  */
 
 #include "projectwindow.h"
+#include "project.h"
+
 #include <QPushButton>
 #include <QDir>
 #include <QStandardPaths>
@@ -26,20 +28,30 @@
 
 #include <QtDebug>
 
-ProjectWindow::ProjectWindow( QWidget* parent, bool is_new ) : QDialog( parent ) {
+ProjectWindow::ProjectWindow( QWidget* parent, Project* project ) : QDialog( parent ) {
     setupUi( this );
 
     setAttribute(Qt::WA_DeleteOnClose);
     buttonBox->button( QDialogButtonBox::Ok )->setEnabled( false );
 
-    if ( is_new ) {
+    if ( !project ) {
         setWindowTitle( tr( "New project" ) );
         buttonBox->button( QDialogButtonBox::Apply )->setVisible( false );
         pathEdit->setText( QStandardPaths::writableLocation( QStandardPaths::HomeLocation ) );
     }
     else {
-        setWindowTitle( tr( "Edit project" ) );
-        readProject();
+        setWindowTitle( tr( "%1 settings" ).arg( project->name() ) );
+
+        nameEdit->setText(project->name());
+        nameEdit->setEnabled(false);
+        pathEdit->setText(project->absolutePath());
+        pathEdit->setEnabled(false);
+        assemblyOptionsEdit->setText(project->assemblyOptions());
+        linkingOptionsEdit->setText(project->linkingOptions());
+        verboseBuild->setCheckState(project->verboseBuild() ? Qt::CheckState::Checked : Qt::CheckState::Unchecked );
+
+        buttonBox->button( QDialogButtonBox::Ok )->setEnabled( true );
+        buttonBox->button( QDialogButtonBox::Apply )->setEnabled( true );
     }
 }
 

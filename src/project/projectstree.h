@@ -1,6 +1,6 @@
 /*
  * <one line to give the program's name and a brief idea of what it does.>
- * Copyright (C) 2015  Roman Yusufkhanov r.yusufkhanov@gmail.com
+ * Copyright (C) 2015  Roman Yusufkhanov <r.yusufkhanov@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,6 +23,7 @@
 #include <QTreeWidget>
 
 class QTreeWidgetItem;
+class Project;
 
 class ProjectsTree : public QTreeWidget {
     Q_OBJECT
@@ -31,7 +32,7 @@ class ProjectsTree : public QTreeWidget {
         explicit ProjectsTree( QWidget* parent );
         ~ProjectsTree() {};
 
-        QTreeWidgetItem* addProjectItem(const QString& name);
+        QTreeWidgetItem* addProjectItem(Project*);
         QTreeWidgetItem* addTargetItem(const QString& name, QTreeWidgetItem* project);
         QTreeWidgetItem* addFolderItem(const QString& name, QTreeWidgetItem* parent);
         QTreeWidgetItem* addTargetSourceItem(const QString& name, QTreeWidgetItem* target);
