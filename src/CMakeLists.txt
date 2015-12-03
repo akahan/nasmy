@@ -60,7 +60,7 @@ target_link_libraries(nasmy
 
 include(${CMAKE_SOURCE_DIR}/cmake/add_translations_qt5.cmake)
 
-add_translations_qt5(TS_FILES translations/nasmy_ru.ts LUPDATE_ARGS "-no-obsolete")
+add_translations_qt5(ALL TS_FILES translations/nasmy_ru.ts LUPDATE_ARGS "-no-obsolete")
 
 ## Installation
 # install(FILES ${NASMY_QMS} DESTINATION "${CMAKE_SOURCE_DIR}/src/resources")
