@@ -10,439 +10,547 @@
     </message>
 </context>
 <context>
-    <name>FileController</name>
+    <name>File</name>
     <message>
-        <location filename="../editor/filecontroller.cpp" line="49"/>
+        <location filename="../editor/file.cpp" line="54"/>
         <source>Untitled</source>
         <translation>Безымянный</translation>
     </message>
 </context>
 <context>
+    <name>FilesController</name>
+    <message>
+        <location filename="../editor/filescontroller.cpp" line="41"/>
+        <source>Error reading file %1:
+%2.</source>
+        <translation>Ошибка чтения файла %1:
+%2.</translation>
+    </message>
+</context>
+<context>
     <name>MainWindow</name>
     <message>
-        <location filename="../mainwindow.ui" line="124"/>
-        <source>testr</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.ui" line="161"/>
+        <location filename="../mainwindow.ui" line="612"/>
         <source>&amp;File</source>
         <translation>Файл</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="165"/>
+        <location filename="../mainwindow.ui" line="616"/>
         <source>&amp;Recent files</source>
-        <translation type="unfinished"></translation>
+        <translation>Недавние файлы</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="188"/>
+        <location filename="../mainwindow.ui" line="639"/>
         <source>&amp;Execute</source>
-        <translation type="unfinished"></translation>
+        <translation>Выполнение</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="205"/>
+        <location filename="../mainwindow.ui" line="656"/>
         <source>&amp;Help</source>
-        <translation type="unfinished"></translation>
+        <translation>Справка</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="212"/>
-        <location filename="../mainwindow.ui" line="815"/>
+        <location filename="../mainwindow.ui" line="663"/>
         <source>&amp;Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Настройки</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="221"/>
+        <location filename="../mainwindow.ui" line="672"/>
         <source>Ed&amp;it</source>
-        <translation type="unfinished"></translation>
+        <translation>Правка</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="240"/>
+        <location filename="../mainwindow.ui" line="691"/>
         <source>Pr&amp;oject</source>
         <translation>Проект</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="244"/>
+        <location filename="../mainwindow.ui" line="695"/>
         <source>&amp;Recent project</source>
-        <translation type="unfinished"></translation>
+        <translation>Недавние проекты</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="276"/>
+        <location filename="../mainwindow.ui" line="150"/>
         <source>&amp;Logs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="330"/>
+        <location filename="../mainwindow.ui" line="204"/>
         <source>&amp;Project</source>
-        <translation type="unfinished"></translation>
+        <translation>Проект</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="388"/>
+        <location filename="../mainwindow.ui" line="262"/>
+        <source>Add a new target to the selected project</source>
+        <translation>Добавить новую цель к выбранному проекту</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="265"/>
         <source>Add target</source>
-        <translation type="unfinished"></translation>
+        <translation>Добавить цель</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="414"/>
+        <location filename="../mainwindow.ui" line="291"/>
+        <source>Open the project settings</source>
+        <translation>Открыть настройки проекта</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="294"/>
         <source>Project settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Настройка проекта</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="549"/>
+        <location filename="../mainwindow.ui" line="364"/>
         <source>Re&amp;gisters</source>
-        <translation type="unfinished"></translation>
+        <translation>Регистры</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="585"/>
+        <location filename="../mainwindow.ui" line="400"/>
         <source>&amp;Watches</source>
-        <translation type="unfinished"></translation>
+        <translation>Наблюдение</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="640"/>
+        <location filename="../mainwindow.ui" line="455"/>
         <source>Enter variable or expression</source>
-        <translation type="unfinished"></translation>
+        <translation>Введите переменную или выражение</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="652"/>
+        <location filename="../mainwindow.ui" line="467"/>
         <source>&amp;Memory</source>
-        <translation type="unfinished"></translation>
+        <translation>Память</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="725"/>
+        <location filename="../mainwindow.ui" line="536"/>
+        <source>Project toolbar</source>
+        <translation>Панель инструментов &quot;Проект&quot;</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="559"/>
+        <source>Execute toolbar</source>
+        <translation>Панель инструментов &quot;Выполнение&quot;</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="578"/>
+        <source>Edit toolbar</source>
+        <translation>Панель инструментов &quot;Правка&quot;</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="730"/>
         <source>&amp;New file</source>
-        <translation type="unfinished"></translation>
+        <translation>Новый файл</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="728"/>
+        <location filename="../mainwindow.ui" line="733"/>
         <source>Ctrl+N</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="737"/>
-        <source>&amp;Open file</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.ui" line="740"/>
+        <location filename="../mainwindow.ui" line="745"/>
         <source>Ctrl+O</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="752"/>
+        <location filename="../mainwindow.ui" line="757"/>
         <source>&amp;Save</source>
-        <translation type="unfinished"></translation>
+        <translation>Сохранить</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="755"/>
+        <location filename="../mainwindow.ui" line="760"/>
         <source>Ctrl+S</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="767"/>
+        <location filename="../mainwindow.ui" line="772"/>
         <source>Save &amp;as...</source>
-        <translation type="unfinished"></translation>
+        <translation>Сохранить как...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="779"/>
+        <location filename="../mainwindow.ui" line="784"/>
         <source>&amp;Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Закрыть</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="782"/>
+        <location filename="../mainwindow.ui" line="787"/>
         <source>Ctrl+W</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.ui" line="790"/>
-        <source>C&amp;lose all</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="795"/>
+        <source>C&amp;lose all</source>
+        <translation>Закрыть все</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="800"/>
         <source>Sa&amp;ve all</source>
-        <translation type="unfinished"></translation>
+        <translation>Сохранить все</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="803"/>
-        <location filename="../mainwindow.ui" line="1091"/>
+        <location filename="../mainwindow.ui" line="808"/>
+        <location filename="../mainwindow.ui" line="1126"/>
         <source>&amp;Clear list</source>
-        <translation type="unfinished"></translation>
+        <translation>Очистить список</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="806"/>
+        <location filename="../mainwindow.ui" line="811"/>
         <source>Clear list of recent files</source>
-        <translation type="unfinished"></translation>
+        <translation>Очистить список недавних файлов</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="820"/>
+        <source>&amp;Settings...</source>
+        <translation>Настройки...</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="825"/>
         <source>About &amp;Qt</source>
-        <translation type="unfinished"></translation>
+        <translation>О Qt</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="832"/>
+        <location filename="../mainwindow.ui" line="837"/>
         <source>&amp;About Nasmy</source>
-        <translation type="unfinished"></translation>
+        <translation>О Nasmy</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="841"/>
+        <location filename="../mainwindow.ui" line="846"/>
         <source>&amp;Exit</source>
-        <translation type="unfinished"></translation>
+        <translation>Выход</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="844"/>
+        <location filename="../mainwindow.ui" line="849"/>
         <source>Ctrl+Q</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="856"/>
+        <location filename="../mainwindow.ui" line="861"/>
         <source>&amp;Copy</source>
-        <translation type="unfinished"></translation>
+        <translation>Скопировать</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="859"/>
+        <location filename="../mainwindow.ui" line="864"/>
         <source>Ctrl+C</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="871"/>
+        <location filename="../mainwindow.ui" line="876"/>
         <source>Cu&amp;t</source>
-        <translation type="unfinished"></translation>
+        <translation>Вырезать</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="874"/>
+        <location filename="../mainwindow.ui" line="879"/>
         <source>Ctrl+X</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="886"/>
+        <location filename="../mainwindow.ui" line="891"/>
         <source>&amp;Paste</source>
-        <translation type="unfinished"></translation>
+        <translation>Вставить</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="889"/>
+        <location filename="../mainwindow.ui" line="894"/>
         <source>Ctrl+V</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="901"/>
+        <location filename="../mainwindow.ui" line="906"/>
         <source>&amp;Undo</source>
-        <translation type="unfinished"></translation>
+        <translation>Отменить</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="904"/>
+        <location filename="../mainwindow.ui" line="909"/>
         <source>Ctrl+Z</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="916"/>
+        <location filename="../mainwindow.ui" line="921"/>
         <source>&amp;Redo</source>
-        <translation type="unfinished"></translation>
+        <translation>Повторить</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="919"/>
+        <location filename="../mainwindow.ui" line="924"/>
         <source>Ctrl+Shift+Z</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="931"/>
+        <location filename="../mainwindow.ui" line="936"/>
         <source>&amp;Select all</source>
-        <translation type="unfinished"></translation>
+        <translation>Выделить всё</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="934"/>
+        <location filename="../mainwindow.ui" line="939"/>
         <source>Ctrl+A</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="946"/>
+        <location filename="../mainwindow.ui" line="951"/>
         <source>&amp;Run</source>
-        <translation type="unfinished"></translation>
+        <translation>Выполнить</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="958"/>
+        <location filename="../mainwindow.ui" line="954"/>
+        <source>F10</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="966"/>
         <source>&amp;Debug</source>
-        <translation type="unfinished"></translation>
+        <translation>Отладить</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="967"/>
-        <source>&amp;New project</source>
-        <translation type="unfinished"></translation>
+        <location filename="../mainwindow.ui" line="969"/>
+        <source>Ctrl+F10</source>
+        <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="970"/>
+        <location filename="../mainwindow.ui" line="984"/>
         <source>Ctrl+Shift+N</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="982"/>
+        <location filename="../mainwindow.ui" line="996"/>
         <source>&amp;Build selected target</source>
-        <translation type="unfinished"></translation>
+        <translation>Собрать выбранную цель</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="994"/>
-        <source>Close &amp;project</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.ui" line="1002"/>
-        <source>&amp;Compile current file</source>
-        <translation type="unfinished"></translation>
+        <location filename="../mainwindow.ui" line="999"/>
+        <source>F9</source>
+        <translation></translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1011"/>
-        <source>&amp;Open project</source>
-        <translation type="unfinished"></translation>
+        <source>Close &amp;project</source>
+        <translation>Закрыть проект</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="1023"/>
+        <location filename="../mainwindow.ui" line="1019"/>
+        <source>&amp;Compile current file</source>
+        <translation>Скомпилировать текущий файл</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="1031"/>
+        <source>Ctrl+Shift+O</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="1043"/>
         <source>Step &amp;into</source>
-        <translation type="unfinished"></translation>
+        <translation>Шаг с заходом</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="1035"/>
+        <location filename="../mainwindow.ui" line="1046"/>
+        <source>F7</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="1058"/>
         <source>Step &amp;over</source>
-        <translation type="unfinished"></translation>
+        <translation>Шаг с обходом</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="1153"/>
-        <source>Ctrl+M</source>
-        <translation type="unfinished"></translation>
+        <location filename="../mainwindow.ui" line="1061"/>
+        <source>F8</source>
+        <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="1188"/>
-        <source>C&amp;lean project</source>
-        <translation type="unfinished"></translation>
+        <location filename="../mainwindow.ui" line="1076"/>
+        <source>Ctrl+F7</source>
+        <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="1047"/>
-        <source>Step o&amp;ut</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.ui" line="1059"/>
-        <source>&amp;Stop</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.ui" line="1071"/>
-        <source>Run &amp;to cursor</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.ui" line="1083"/>
-        <source>&amp;Add breakpoint</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.ui" line="1094"/>
-        <source>Clear list of recent projects</source>
-        <translation type="unfinished"></translation>
+        <location filename="../mainwindow.ui" line="1091"/>
+        <source>Ctrl+Shift+F10</source>
+        <translation></translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1106"/>
-        <source>&amp;Find...</source>
-        <translation type="unfinished"></translation>
+        <source>F4</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="1144"/>
+        <source>Ctrl+F</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="1159"/>
+        <source>Ctrl+R</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="1171"/>
+        <source>Ctrl+Alt+F</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="1200"/>
+        <source>Ctrl+M</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="1226"/>
+        <source>Shift+F9</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="1238"/>
+        <source>C&amp;lean project</source>
+        <translation>Очистить проект</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="1241"/>
+        <source>Ctrl+F9</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="1073"/>
+        <source>Step o&amp;ut</source>
+        <translation>Шаг наружу</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="742"/>
+        <source>&amp;Open file...</source>
+        <translation>Открыть файл...</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="978"/>
+        <source>New project...</source>
+        <translation>Новый проект...</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="981"/>
+        <source>Create a new project</source>
+        <translation>Создать новый проект</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="1028"/>
+        <source>&amp;Open project...</source>
+        <translation>Открыть проект...</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="1088"/>
+        <source>&amp;Stop</source>
+        <translation>Остановить</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="1103"/>
+        <source>Run &amp;to cursor</source>
+        <translation>Выполнить до курсора</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1118"/>
+        <source>&amp;Add breakpoint</source>
+        <translation>Добавить точку остановки</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="1129"/>
+        <source>Clear list of recent projects</source>
+        <translation>Очистить список недавних проектов</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="1141"/>
+        <source>&amp;Find...</source>
+        <translation>Поиск...</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="1156"/>
         <source>R&amp;eplace...</source>
-        <translation type="unfinished"></translation>
+        <translation>Заменить...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="1127"/>
+        <location filename="../mainwindow.ui" line="1168"/>
         <source>Find &amp;in files...</source>
-        <translation type="unfinished"></translation>
+        <translation>Найти в файлах...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="1139"/>
+        <location filename="../mainwindow.ui" line="1183"/>
         <source>F&amp;ormat file</source>
-        <translation type="unfinished"></translation>
+        <translation>Форматировать файл</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="1150"/>
+        <location filename="../mainwindow.ui" line="1197"/>
         <source>Show &amp;menu bar</source>
-        <translation type="unfinished"></translation>
+        <translation>Показать меню</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="1164"/>
+        <location filename="../mainwindow.ui" line="1211"/>
         <source>Show status &amp;bar</source>
-        <translation type="unfinished"></translation>
+        <translation>Показать панель статуса</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="1176"/>
+        <location filename="../mainwindow.ui" line="1223"/>
         <source>Build &amp;all</source>
-        <translation type="unfinished"></translation>
+        <translation>Собрать все</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="91"/>
+        <location filename="../mainwindow.cpp" line="86"/>
         <source>Ready</source>
-        <translation type="unfinished"></translation>
+        <translation>Готов</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="162"/>
+        <location filename="../mainwindow.cpp" line="205"/>
         <source>The document was changed. Do you want to save changes?</source>
-        <translation type="unfinished"></translation>
+        <translation>Документ был изменен. Сохранить изменения?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="183"/>
+        <location filename="../mainwindow.cpp" line="227"/>
         <source>Error write file %1:
 %2.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ошибка записи файла %1:
+%2.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="196"/>
+        <location filename="../mainwindow.cpp" line="233"/>
         <source>File saved</source>
-        <translation type="unfinished"></translation>
+        <translation>Файл сохранен</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="295"/>
-        <source>Error reading file %1:
-%2.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="326"/>
-        <source>Error reading project %1:
-%2.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="359"/>
+        <location filename="../mainwindow.cpp" line="276"/>
         <source>Open project</source>
-        <translation type="unfinished"></translation>
+        <translation>Открыть проект</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="361"/>
+        <location filename="../mainwindow.cpp" line="278"/>
         <source>Nasmy projects (*.nasmy)</source>
-        <translation type="unfinished"></translation>
+        <translation>Проекты Nasmy (*.nasmy)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="380"/>
+        <location filename="../mainwindow.cpp" line="296"/>
         <source>Project loaded</source>
-        <translation type="unfinished"></translation>
+        <translation>Проект загружен</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="480"/>
+        <location filename="../mainwindow.cpp" line="242"/>
         <source>Open files</source>
-        <translation type="unfinished"></translation>
+        <translation>Открыть файлы</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="482"/>
+        <location filename="../mainwindow.cpp" line="244"/>
         <source>NASM assembler files (*.asm *.nasm *.inc *.ninc);;All files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Файла ассемблера NASM (*.asm *.nasm *.inc *.ninc);;Все файлы (*)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="493"/>
+        <location filename="../mainwindow.cpp" line="255"/>
         <source>All files loaded</source>
-        <translation type="unfinished"></translation>
+        <translation>Все файлы загружены</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="506"/>
+        <location filename="../mainwindow.cpp" line="266"/>
         <source>File loaded</source>
-        <translation type="unfinished"></translation>
+        <translation>Файл загружен</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="547"/>
+        <location filename="../mainwindow.cpp" line="290"/>
+        <source>Project already loaded</source>
+        <translation>Проект уже загружен</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="530"/>
         <source>Save as</source>
-        <translation type="unfinished"></translation>
+        <translation>Сохранить как</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="532"/>
+        <source>All files (*);;NASM assembler files (*.asm *.nasm *.inc *.ninc)</source>
+        <translation>Все файлы (*);;Файлы ассемблера NASM (*.asm *.nasm *.inc *.ninc)</translation>
     </message>
 </context>
 <context>
@@ -450,77 +558,82 @@
     <message>
         <location filename="../project/projectwindow.ui" line="38"/>
         <source>A&amp;rchitecture:</source>
-        <translation type="unfinished"></translation>
+        <translation>Архитектура:</translation>
     </message>
     <message>
         <location filename="../project/projectwindow.ui" line="54"/>
         <source>x86 - 32 bit</source>
-        <translation type="unfinished"></translation>
+        <translation>x86 - 32 бита</translation>
     </message>
     <message>
         <location filename="../project/projectwindow.ui" line="59"/>
         <source>x86_64 - 64 bit</source>
-        <translation type="unfinished"></translation>
+        <translation>x86_64 - 64 бита</translation>
     </message>
     <message>
         <location filename="../project/projectwindow.ui" line="88"/>
         <source>Pro&amp;ject name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Название проекта:</translation>
     </message>
     <message>
         <location filename="../project/projectwindow.ui" line="101"/>
         <source>Enter the project&apos;s name (min 3 symbols)</source>
-        <translation type="unfinished"></translation>
+        <translation>Введите название проекта (мин 3 символа)</translation>
     </message>
     <message>
         <location filename="../project/projectwindow.ui" line="114"/>
         <source>Enter the project&apos;s folder location</source>
-        <translation type="unfinished"></translation>
+        <translation>Введите папку проекта</translation>
     </message>
     <message>
         <location filename="../project/projectwindow.ui" line="133"/>
         <source>&amp;Assembly options:</source>
-        <translation type="unfinished"></translation>
+        <translation>Опции ассемблирования:</translation>
     </message>
     <message>
         <location filename="../project/projectwindow.ui" line="196"/>
         <source>Project location:</source>
-        <translation type="unfinished"></translation>
+        <translation>Папка проекта:</translation>
     </message>
     <message>
         <location filename="../project/projectwindow.ui" line="143"/>
         <source>Additional NASM options</source>
-        <translation type="unfinished"></translation>
+        <translation>Дополнительные опции ассемблера NASM</translation>
     </message>
     <message>
         <location filename="../project/projectwindow.ui" line="156"/>
         <source>Lin&amp;king options:</source>
-        <translation type="unfinished"></translation>
+        <translation>Опции компановки:</translation>
     </message>
     <message>
         <location filename="../project/projectwindow.ui" line="166"/>
         <source>Additional GCC/Clang options</source>
-        <translation type="unfinished"></translation>
+        <translation>Дополнительные опции компоновщика GCC/Clang</translation>
     </message>
     <message>
         <location filename="../project/projectwindow.ui" line="173"/>
         <source>Verbose build</source>
-        <translation type="unfinished"></translation>
+        <translation>Выводить команды сборки</translation>
     </message>
     <message>
-        <location filename="../project/projectwindow.cpp" line="31"/>
+        <location filename="../project/projectwindow.cpp" line="38"/>
         <source>New project</source>
-        <translation type="unfinished"></translation>
+        <translation>Новый проект</translation>
     </message>
     <message>
-        <location filename="../project/projectwindow.cpp" line="36"/>
-        <source>Edit project</source>
-        <translation type="unfinished"></translation>
+        <location filename="../project/projectwindow.cpp" line="43"/>
+        <source>%1 settings</source>
+        <translation>Настройки %1</translation>
     </message>
+</context>
+<context>
+    <name>ProjectsController</name>
     <message>
-        <location filename="../project/projectwindow.cpp" line="87"/>
-        <source>Select folder</source>
-        <translation type="unfinished"></translation>
+        <location filename="../project/projectscontroller.cpp" line="43"/>
+        <source>Error reading project %1:
+%2.</source>
+        <translation>Ошибка чтения проекта %1:
+%2.</translation>
     </message>
 </context>
 <context>
@@ -528,274 +641,297 @@
     <message>
         <location filename="../qfileedit.h" line="113"/>
         <source>Open File</source>
-        <translation type="unfinished"></translation>
+        <translation>Открыть файл</translation>
     </message>
     <message>
         <location filename="../qfileedit.h" line="119"/>
         <source>Select Folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Выбрать папку</translation>
     </message>
 </context>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../main.cpp" line="28"/>
+        <location filename="../main.cpp" line="27"/>
         <source>Nasmy</source>
-        <translation type="unfinished"></translation>
+        <translation>Nasmy</translation>
     </message>
 </context>
 <context>
     <name>SettingsWindow</name>
     <message>
-        <location filename="../settingswindow.ui" line="14"/>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../settingswindow.ui" line="37"/>
+        <location filename="../settingswindow.ui" line="49"/>
         <source>Nasmy Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../settingswindow.ui" line="66"/>
-        <location filename="../settingswindow.ui" line="386"/>
+        <location filename="../settingswindow.ui" line="290"/>
+        <location filename="../settingswindow.ui" line="1957"/>
         <source>Common</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingswindow.ui" line="158"/>
+        <location filename="../settingswindow.ui" line="72"/>
         <source>Language:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingswindow.ui" line="166"/>
+        <location filename="../settingswindow.ui" line="82"/>
         <source>System</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingswindow.ui" line="171"/>
+        <location filename="../settingswindow.ui" line="87"/>
         <source>Russian</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingswindow.ui" line="176"/>
+        <location filename="../settingswindow.ui" line="92"/>
         <source>English</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingswindow.ui" line="100"/>
+        <location filename="../settingswindow.ui" line="115"/>
         <source>On start:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingswindow.ui" line="120"/>
+        <location filename="../settingswindow.ui" line="137"/>
         <source>Open get started window</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingswindow.ui" line="125"/>
+        <location filename="../settingswindow.ui" line="142"/>
         <source>Restore previous session</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingswindow.ui" line="209"/>
-        <source>Show all registers in debug:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../settingswindow.ui" line="216"/>
-        <source>&amp;Yes</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../settingswindow.ui" line="229"/>
-        <source>&amp;No, show only general purpose</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../settingswindow.ui" line="78"/>
-        <source>To apply the changes require a restart!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../settingswindow.ui" line="264"/>
-        <source>Enter default projects folder location</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../settingswindow.ui" line="277"/>
-        <source>Projects folder</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../settingswindow.ui" line="283"/>
+        <location filename="../settingswindow.ui" line="193"/>
         <source>Build</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingswindow.ui" line="289"/>
+        <location filename="../settingswindow.ui" line="263"/>
         <source>/usr/bin/nasm</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingswindow.ui" line="292"/>
-        <source>Enter NASM executable path</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../settingswindow.ui" line="302"/>
+        <location filename="../settingswindow.ui" line="213"/>
         <source>Enter NASM options</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingswindow.ui" line="312"/>
-        <source>/usr/bin/gcc</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../settingswindow.ui" line="315"/>
-        <source>Enter GCC/Clang path</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../settingswindow.ui" line="325"/>
+        <location filename="../settingswindow.ui" line="237"/>
         <source>Enter GCC/Clang options</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingswindow.ui" line="351"/>
+        <location filename="../settingswindow.ui" line="199"/>
         <source>Assembler path:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingswindow.ui" line="358"/>
+        <location filename="../settingswindow.ui" line="14"/>
+        <source>Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settingswindow.ui" line="165"/>
+        <source>Show menu on start</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settingswindow.ui" line="175"/>
+        <source>Enter the default project&apos;s folder location</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settingswindow.ui" line="185"/>
+        <source>Projects folder:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settingswindow.ui" line="206"/>
         <source>Assembly options:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingswindow.ui" line="365"/>
+        <location filename="../settingswindow.ui" line="223"/>
         <source>Linker path:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingswindow.ui" line="372"/>
+        <location filename="../settingswindow.ui" line="230"/>
         <source>Linking options:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingswindow.ui" line="380"/>
+        <location filename="../settingswindow.ui" line="273"/>
+        <source>/usr/bin/clang</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settingswindow.ui" line="284"/>
+        <location filename="../settingswindow.ui" line="1858"/>
         <source>View</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingswindow.ui" line="397"/>
-        <location filename="../settingswindow.ui" line="667"/>
+        <location filename="../settingswindow.ui" line="301"/>
+        <location filename="../settingswindow.ui" line="571"/>
+        <location filename="../settingswindow.ui" line="1872"/>
         <source>Font:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingswindow.ui" line="447"/>
+        <location filename="../settingswindow.ui" line="351"/>
         <source>Enable highlighting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingswindow.ui" line="497"/>
+        <location filename="../settingswindow.ui" line="401"/>
         <source>Current line:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingswindow.ui" line="504"/>
+        <location filename="../settingswindow.ui" line="408"/>
         <source>Debugging line:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingswindow.ui" line="554"/>
+        <location filename="../settingswindow.ui" line="458"/>
         <source>Background:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingswindow.ui" line="604"/>
+        <location filename="../settingswindow.ui" line="508"/>
         <source>Line number panel:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingswindow.ui" line="704"/>
+        <location filename="../settingswindow.ui" line="608"/>
+        <location filename="../settingswindow.ui" line="1909"/>
         <source>Size:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingswindow.ui" line="735"/>
+        <location filename="../settingswindow.ui" line="639"/>
+        <location filename="../settingswindow.ui" line="2018"/>
         <source>Syntax highlighting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingswindow.ui" line="753"/>
+        <location filename="../settingswindow.ui" line="657"/>
         <source>FG</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingswindow.ui" line="766"/>
+        <location filename="../settingswindow.ui" line="670"/>
         <source>BG</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingswindow.ui" line="782"/>
+        <location filename="../settingswindow.ui" line="686"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;B&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingswindow.ui" line="795"/>
+        <location filename="../settingswindow.ui" line="699"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;It&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingswindow.ui" line="808"/>
+        <location filename="../settingswindow.ui" line="712"/>
         <source>Keywords:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingswindow.ui" line="921"/>
+        <location filename="../settingswindow.ui" line="825"/>
         <source>Registers:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingswindow.ui" line="1043"/>
+        <location filename="../settingswindow.ui" line="947"/>
         <source>Numbers:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingswindow.ui" line="1168"/>
+        <location filename="../settingswindow.ui" line="1072"/>
         <source>Memory:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingswindow.ui" line="1293"/>
+        <location filename="../settingswindow.ui" line="1197"/>
         <source>Labels:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingswindow.ui" line="1418"/>
+        <location filename="../settingswindow.ui" line="1322"/>
         <source>Comments:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingswindow.ui" line="1543"/>
+        <location filename="../settingswindow.ui" line="1447"/>
         <source>System:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingswindow.ui" line="1668"/>
+        <location filename="../settingswindow.ui" line="1572"/>
         <source>I/O macro:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingswindow.ui" line="1793"/>
+        <location filename="../settingswindow.ui" line="1697"/>
         <source>Quotation:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settingswindow.ui" line="1924"/>
+        <location filename="../settingswindow.ui" line="1828"/>
         <source>Default code editor text:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settingswindow.ui" line="1934"/>
+        <source>&amp;Default code editor text:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settingswindow.ui" line="1985"/>
+        <location filename="../settingswindow.ui" line="2046"/>
+        <source>Context</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settingswindow.ui" line="1993"/>
+        <location filename="../settingswindow.ui" line="2054"/>
+        <source>Foreground color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settingswindow.ui" line="2005"/>
+        <location filename="../settingswindow.ui" line="2066"/>
+        <source>Background color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settingswindow.ui" line="2078"/>
+        <source>Bold font</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settingswindow.ui" line="2090"/>
+        <source>Italic font</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settingswindow.ui" line="2102"/>
+        <source>Underline font</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settingswindow.ui" line="2114"/>
+        <source>Strikethrough font</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
