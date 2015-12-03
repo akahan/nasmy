@@ -4,3 +4,4 @@ test/*
 *.user
 _*
 .directory
+src/translations/*.qm
