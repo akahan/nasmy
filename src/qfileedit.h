@@ -10,27 +10,27 @@
 #include <QAction>
 #include <QStyle>
 
-#include <QtDebug>
+// #include <QtDebug>
 
 class QFileValidator : public QValidator {
     Q_OBJECT
 
     public:
         QFileValidator ( QObject* parent ) : QValidator( parent ) {
-            qDebug() << "QFileValidator";
+//             qDebug() << "QFileValidator";
         }
         ~QFileValidator() {
-            qDebug() << "~QFileValidator";
+//             qDebug() << "~QFileValidator";
         }
 
         virtual State validate( QString& input, int& ) const Q_DECL_OVERRIDE {
             QFileInfo fi( input );
-            qDebug() << "QFileValidator validate";
+//             qDebug() << "QFileValidator validate";
 
             if ( fi.isFile() && fi.exists() )
                 return Acceptable;
 
-            qDebug() << "QFileValidator Intermediate";
+//             qDebug() << "QFileValidator Intermediate";
 
             return Intermediate;
         }
@@ -41,20 +41,20 @@ class QFolderValidator : public QValidator {
 
     public:
         QFolderValidator ( QObject* parent ) : QValidator( parent ) {
-            qDebug() << "QFolderValidator";
+//             qDebug() << "QFolderValidator";
         }
         ~QFolderValidator() {
-            qDebug() << "~QFolderValidator";
+//             qDebug() << "~QFolderValidator";
         }
 
         virtual State validate( QString& input, int& ) const Q_DECL_OVERRIDE {
             QDir di( input );
-            qDebug() << "QFolderValidator validate";
+//             qDebug() << "QFolderValidator validate";
 
             if ( di.exists() )
                 return Acceptable;
 
-            qDebug() << "QFolderValidator Intermediate";
+//             qDebug() << "QFolderValidator Intermediate";
 
             return Intermediate;
         };
