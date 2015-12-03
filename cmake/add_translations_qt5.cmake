@@ -45,7 +45,7 @@ function(add_translations_qt5)
 
         if(Qt5_LRELEASE_EXECUTABLE)
             add_custom_target(
-                ${_TARGET}_compile ${A_ALL}
+                ${_TARGET}_compile
                 COMMAND ${Qt5_LRELEASE_EXECUTABLE} ${A_ARGS} ${_abs_ts_files}
                 DEPENDS ${_TARGET}
                 COMMENT "Compilation Qt translations files"
