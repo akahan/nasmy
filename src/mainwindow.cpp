@@ -122,6 +122,7 @@ void MainWindow::saveSettings() {
 }
 
 void MainWindow::setupActions() {
+    // Add actions to MainWindow
     addAction(actionNewFile);
     addAction(actionOpenFile);
     addAction(actionSaveFile);
@@ -684,7 +685,7 @@ void MainWindow::onProjectsController_projectLoaded(Project* p) {
 
     std::function<void (const QString&, ProjectBaseItem*)> list_recursive = [&] (const QString& s_dir, ProjectBaseItem* parent_item) {
         QDir dir( s_dir );
-        dir.setFilter(QDir::Files | QDir::Dirs | QDir::NoDotAndDotDot);
+        dir.setFilter( QDir::Files | QDir::Dirs | QDir::NoDotAndDotDot );
         for ( auto file : dir.entryInfoList() ) {
             if (file.isDir()) {
                 FolderItem* folder_item = projectsTree->addFolderItem( project_item, file );
@@ -709,8 +710,8 @@ void MainWindow::on_projectsTree_itemSelectionChanged() {
 }
 
 void MainWindow::on_projectsTree_itemDoubleClicked( QTreeWidgetItem* item, int ) {
-    if ( FileItem* file_item = dynamic_cast<FileItem*>(item) ) {
-        openFile(file_item->absolutePath());
+    if ( SourceItem* source_item = dynamic_cast<SourceItem*>(item) ) {
+        openFile(source_item->absolutePath());
     }
 }
 

@@ -101,7 +101,7 @@ void TargetItem::initUI() {
     setFont( 0, font_target );
 }
 
-TargetSourceItem::TargetSourceItem( TargetItem* target, const QFileInfo& file_info  ) : FileItem( target, file_info ) {
+TargetSourceItem::TargetSourceItem( TargetItem* target, const QFileInfo& file_info  ) : SourceItem( target, file_info ) {
 //     setText( 0, project()->projectFolder().relativeFilePath(source->absolutePath()) );
     QString rel_path = project()->projectFolder().relativeFilePath(file_info.absoluteFilePath());
     setText( 0, rel_path );

@@ -83,7 +83,7 @@ class TargetItem : public ProjectBaseItem {
         virtual void initUI();
 };
 
-class TargetSourceItem : public FileItem {
+class TargetSourceItem : public SourceItem {
     public:
         explicit TargetSourceItem( TargetItem* parent, const QFileInfo& );
 
