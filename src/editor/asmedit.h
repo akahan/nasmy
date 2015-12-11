@@ -23,12 +23,12 @@
 #include <QPlainTextEdit>
 
 class QCompleter;
-class AdditionalArea;
+class SideArea;
 
 class AsmEdit : public QPlainTextEdit {
     Q_OBJECT
 
-    friend class AdditionalArea;
+    friend class SideArea;
 
     public:
         AsmEdit( QWidget* parent = 0 );
@@ -36,7 +36,7 @@ class AsmEdit : public QPlainTextEdit {
 
         int curr_dbg_line;
 
-        int additionalAreaWidth();
+        int sideAreaWidth();
 
     signals:
 //         void endOfCheckingCursorPositions();
@@ -55,12 +55,11 @@ class AsmEdit : public QPlainTextEdit {
         void resizeEvent( QResizeEvent* );
         void contextMenuEvent( QContextMenuEvent* );
 
-        void additionalAreaPaintEvent( QPaintEvent* );
-        void additionalAreaMouseReleaseEvent( QMouseEvent* );
+        void sideAreaPaintEvent( QPaintEvent* );
+        void sideAreaMouseReleaseEvent( QMouseEvent* );
 
     private:
-
-        AdditionalArea* additional_area;
+        SideArea* side_area;
         QPixmap debug_image;
         QPixmap break_image;
 
@@ -70,36 +69,35 @@ class AsmEdit : public QPlainTextEdit {
         QList<int> breakpoints;
 };
 
-class AdditionalArea : public QWidget {
+class SideArea : public QWidget {
     public:
-        AdditionalArea( AsmEdit* editor ) : QWidget( editor ) {
-//             setGeometry(0,0,0,0);
-            asm_edit = editor;
+        SideArea( AsmEdit* editor ) : QWidget( editor ) {
+            m_editor = editor;
         }
 
         QSize sizeHint() const Q_DECL_OVERRIDE {
-            return QSize( asm_edit->additionalAreaWidth(), 0 );
+            return QSize( m_editor->sideAreaWidth(), 0 );
         }
 
     protected:
         void paintEvent( QPaintEvent* event ) Q_DECL_OVERRIDE {
-            asm_edit->additionalAreaPaintEvent( event );
+            m_editor->sideAreaPaintEvent( event );
         }
 
         void mouseReleaseEvent( QMouseEvent *event ) Q_DECL_OVERRIDE {
-            asm_edit->additionalAreaMouseReleaseEvent( event );
+            m_editor->sideAreaMouseReleaseEvent( event );
         }
 
         void mousePressEvent( QMouseEvent * ) Q_DECL_OVERRIDE {
-//             asm_edit->additionalAreaMousePressEvent( event );
+//             asm_edit->sideAreaMousePressEvent( event );
         }
 
         void wheelEvent( QWheelEvent *event ) Q_DECL_OVERRIDE {
-            asm_edit->wheelEvent( event );
+            m_editor->wheelEvent( event );
         }
 
     private:
-        AsmEdit* asm_edit;
+        AsmEdit* m_editor;
 };
 
 #endif // ASMEDIT_H

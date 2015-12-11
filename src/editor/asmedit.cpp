@@ -66,7 +66,7 @@ AsmEdit::AsmEdit( QWidget* parent ) : QPlainTextEdit( parent ) {
 
     can_breakpoints = true;
     show_line_numbers = true;
-    additional_area = new AdditionalArea( this );
+    side_area = new SideArea( this );
 
 //     setWordWrapMode(QTextOption::NoWrap);
 //     setWordWrapMode(QTextOption::WordWrap);
@@ -91,7 +91,7 @@ AsmEdit::AsmEdit( QWidget* parent ) : QPlainTextEdit( parent ) {
 }
 
 AsmEdit::~AsmEdit() {
-    delete additional_area;
+    delete side_area;
 }
 
 void AsmEdit::contextMenuEvent( QContextMenuEvent* event ) {
@@ -118,11 +118,11 @@ void AsmEdit::resizeEvent( QResizeEvent* event ) {
     QRect cr = contentsRect();
     QRect vr = viewport()->rect();
     QRect visual = QStyle::visualRect( layoutDirection(), vr,
-        QRect( cr.left(), cr.top(), additionalAreaWidth(), vr.height() - vr.top() ) );
+        QRect( cr.left(), cr.top(), sideAreaWidth(), vr.height() - vr.top() ) );
 
     if( visual != geometry() ) {
 //         qDebug() << "[resizeEvent]" << cr << vr << visual;
-        additional_area->setGeometry( visual );
+        side_area->setGeometry( visual );
     }
 }
 
@@ -130,7 +130,7 @@ void AsmEdit::keyPressEvent( QKeyEvent* event ) {
     QPlainTextEdit::keyPressEvent( event );
 }
 
-int AsmEdit::additionalAreaWidth() {
+int AsmEdit::sideAreaWidth() {
     int space = dbg_area_width;
 
     if ( show_line_numbers ) {
@@ -142,18 +142,18 @@ int AsmEdit::additionalAreaWidth() {
 }
 
 void AsmEdit::updateAdditionalAreaWidth( int ) {
-    setViewportMargins( additionalAreaWidth(), 0, 0, 0 );
+    setViewportMargins( sideAreaWidth(), 0, 0, 0 );
 }
 
 void AsmEdit::onUpdateRequest( const QRect& rect, int dy ) {
-//     qDebug() << "[onUpdateRequest]" << rect << dy << viewport()->rect() << additional_area->geometry();
+//     qDebug() << "[onUpdateRequest]" << rect << dy << viewport()->rect() << side_area->geometry();
     if ( dy ) {
-        additional_area->scroll( 0, dy );
+        side_area->scroll( 0, dy );
     }
     else {
-        QRect arect( 0, rect.y(), additional_area->width(), rect.height() );
+        QRect arect( 0, rect.y(), side_area->width(), rect.height() );
 //         qDebug() << "[onUpdateRequest]" << arect;
-        additional_area->update( arect );
+        side_area->update( arect );
     }
 
     if ( rect.contains( viewport()->rect() ) ) {
@@ -161,8 +161,8 @@ void AsmEdit::onUpdateRequest( const QRect& rect, int dy ) {
     }
 }
 
-void AsmEdit::additionalAreaPaintEvent( QPaintEvent* event ) {
-    QPainter painter( additional_area );
+void AsmEdit::sideAreaPaintEvent( QPaintEvent* event ) {
+    QPainter painter( side_area );
     QRect er = event->rect();
 
 //     painter.fillRect(er, clearColor); //background
@@ -189,9 +189,9 @@ void AsmEdit::additionalAreaPaintEvent( QPaintEvent* event ) {
                     painter.setPen( QColor( 160, 160, 160 ) ); //number
                 }
 
-//                 painter.drawLine( 0, top, additional_area->width(), top );
+//                 painter.drawLine( 0, top, side_area->width(), top );
                 QString number = QString::number( block_number + 1 );
-                painter.drawText( 0, top, additional_area->width() - 2, fh, Qt::AlignRight, number );
+                painter.drawText( 0, top, side_area->width() - 2, fh, Qt::AlignRight, number );
             }
 
             if ( breakpoints.contains( block_number + 1 ) && can_breakpoints ) {
@@ -212,7 +212,7 @@ void AsmEdit::additionalAreaPaintEvent( QPaintEvent* event ) {
     }
 }
 
-void AsmEdit::additionalAreaMouseReleaseEvent( QMouseEvent* event ) {
+void AsmEdit::sideAreaMouseReleaseEvent( QMouseEvent* event ) {
     if ( can_breakpoints && event->x() < dbg_area_width ) {
         int line_number = 0;
         int ey = event->y();
@@ -234,7 +234,7 @@ void AsmEdit::additionalAreaMouseReleaseEvent( QMouseEvent* event ) {
                 emit breakpointsChanged( line_number, true );
             }
 
-            emit updateRequest( additional_area->rect(), 0 );
+            emit updateRequest( side_area->rect(), 0 );
         }
     }
 }
