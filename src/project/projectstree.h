@@ -22,8 +22,15 @@
 
 #include <QTreeWidget>
 
-class QTreeWidgetItem;
 class Project;
+class QFileInfo;
+class ProjectBaseItem;
+class ProjectItem;
+class FolderItem;
+class FileItem;
+class SourceItem;
+class TargetItem;
+class TargetSourceItem;
 
 class ProjectsTree : public QTreeWidget {
     Q_OBJECT
@@ -32,11 +39,11 @@ class ProjectsTree : public QTreeWidget {
         explicit ProjectsTree( QWidget* parent );
         ~ProjectsTree() {};
 
-        QTreeWidgetItem* addProjectItem(Project*);
-        QTreeWidgetItem* addTargetItem(const QString& name, QTreeWidgetItem* project);
-        QTreeWidgetItem* addFolderItem(const QString& name, QTreeWidgetItem* parent);
-        QTreeWidgetItem* addTargetSourceItem(const QString& name, QTreeWidgetItem* target);
-        QTreeWidgetItem* addFileItem(const QString& name, QTreeWidgetItem* folder);
+        ProjectItem* addProjectItem(Project*);
+        FolderItem* addFolderItem( ProjectBaseItem* parent, const QFileInfo& );
+        SourceItem* addSourceItem( ProjectBaseItem* folder, const QFileInfo& );
+        TargetItem* addTargetItem( ProjectItem*, const QString& name );
+        TargetSourceItem* addTargetSourceItem( TargetItem*, const QFileInfo& );
 
     private:
 };

@@ -25,6 +25,8 @@
 
 typedef QList<Project*> ProjectsList;
 
+class File;
+
 class ProjectsController : public QObject {
     Q_OBJECT
 
@@ -33,12 +35,17 @@ class ProjectsController : public QObject {
 
         Project* loadProject( const QString& absolute_path );
         Project* getProject( const QString& absolute_path );
+        Project* getProject( const File* file );
+
+        inline Project* activeProject() const { return m_active_project; };
 
     signals:
         void projectLoaded(Project*);
+        void projectActivated(Project*);
 
     private:
         ProjectsList projectsList;
+        Project* m_active_project;
 };
 
 #endif // PROJECTSCONTROLLER_H

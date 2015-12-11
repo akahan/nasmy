@@ -27,24 +27,26 @@ FilesController::FilesController(QObject* parent) : QObject(parent) {
 }
 
 File* FilesController::loadFile( const QString& absolute_path ) {
-    File* fc = NULL;
+    File* file = NULL;
 
     try {
-        fc = new File( this, absolute_path );
+        file = new File( this, absolute_path );
         if ( !absolute_path.isEmpty() ) {
-            fc->open();
+            file->open();
         }
-        filesList.append( fc );
+        filesList.append( file );
+
+        file->m_project = Nasmy::pc()->getProject(file);
     }
     catch ( QString e ) {
-        if( fc ) delete fc;
+        if( file ) delete file;
         Nasmy::warning( tr( "Error reading file %1:\n%2." ).arg( absolute_path ).arg( e ) );
         return NULL;
     }
 
-    emit fileLoaded(fc);
+    emit fileLoaded(file);
 
-    return fc;
+    return file;
 }
 
 File* FilesController::getFile(const int index) {
@@ -52,17 +54,17 @@ File* FilesController::getFile(const int index) {
 }
 
 File* FilesController::getFile(const QString& absolute_path) {
-    foreach( File* f, filesList ) {
-        if ( f->absolutePath() == absolute_path ) {
-            return f;
+    foreach( File* file, filesList ) {
+        if ( file->absolutePath() == absolute_path ) {
+            return file;
         }
     }
     return NULL;
 }
 
 void FilesController::unloadFile(const int index) {
-    File* f = getFile(index);
-    f->disconnect();
-    f->deleteLater();
+    File* file = getFile(index);
+    file->disconnect();
+    file->deleteLater();
     filesList.removeAt( index );
 }

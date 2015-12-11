@@ -32,13 +32,13 @@
 #include <QtDebug>
 
 File::File( QObject* parent, QString absolute_path ) : QObject( parent ) {
-    asm_edit = new AsmEdit( Nasmy::mainwindow() );
+    m_editor = new AsmEdit( Nasmy::mainwindow() );
 
     setAbsolutePath(absolute_path);
 }
 
 File::~File() {
-    delete asm_edit;
+    delete m_editor;
 }
 
 void File::setAbsolutePath(const QString& value) {
@@ -64,7 +64,7 @@ void File::open() {
     QString text = file.readAll();
 
     if ( !text.isEmpty() ) {
-        asm_edit->setPlainText( text );
+        m_editor->setPlainText( text );
     }
 }
 
@@ -76,9 +76,9 @@ void File::save() {
     }
 
     QTextStream out( &file );
-    out << asm_edit->toPlainText();
+    out << m_editor->toPlainText();
 
-    asm_edit->document()->setModified( false );
+    m_editor->document()->setModified( false );
 }
 
 void File::setConnectionsToEditor() {

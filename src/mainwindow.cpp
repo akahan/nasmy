@@ -26,10 +26,10 @@
 #include "project/projectstreeitem.h"
 #include "editor/asmedit.h"
 
-// #include "editor/syntax/highlighter.h"
 
 #include <QFileDialog>
 #include <QDebug>
+// #include "editor/syntax/highlighter.h"
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonArray>
@@ -37,6 +37,9 @@
 #include <QTabBar>
 #include <QTextCursor>
 #include <QMimeData>
+#include <QTreeWidgetItem>
+#include <QDir>
+#include <functional>
 
 // #include <QQuickWidget>
 // #include <QtQml/QQmlEngine>
@@ -95,6 +98,7 @@ void MainWindow::setupGlobals() {
 
     connect( Nasmy::fc(), &FilesController::fileLoaded, this, &MainWindow::onFilesController_fileLoaded );
     connect( Nasmy::pc(), &ProjectsController::projectLoaded, this, &MainWindow::onProjectsController_projectLoaded );
+    connect( Nasmy::pc(), &ProjectsController::projectActivated, this, &MainWindow::onProjectsController_projectActivated );
 }
 
 void MainWindow::readSettings() {
@@ -267,29 +271,29 @@ void MainWindow::openFile( const QString& absolute_path ) {
 }
 
 void MainWindow::openProject( const QString& absolute_path ) {
-    QString path;
+    QString project_path;
 
     if ( absolute_path.isEmpty() ) {
-        path =
+        project_path =
             QFileDialog::getOpenFileName( this,
                 tr( "Open project" ),
                 "/home/jonny/projects/",
                 tr( "Nasmy projects (*.nasmy)" )
             );
 
-        if ( path.isEmpty() ) {
+        if ( project_path.isEmpty() ) {
             return;
         }
     }
     else {
-        path = absolute_path;
+        project_path = absolute_path;
     }
 
-    if (Nasmy::pc()->getProject( path )) {
+    if (Nasmy::pc()->getProject( project_path )) {
         statusBar()->showMessage( tr( "Project already loaded" ), 2000 );
     }
 
-    Nasmy::pc()->loadProject( path );
+    Nasmy::pc()->loadProject( project_path );
 
     //check if project is opened
     statusBar()->showMessage( tr( "Project loaded" ), 2000 );
@@ -299,12 +303,12 @@ void MainWindow::updateMenus() {
     bool at_least_one_opened = false;
     QString absolute_path = "";
 
-    int tab_num = tabSources->currentIndex();
+    int tab_index = tabSources->currentIndex();
 
-    if ( tab_num != -1 ) {
+    if ( tab_index != -1 ) {
         at_least_one_opened = true;
 
-        File* file = Nasmy::fc()->getFile(tab_num);
+        File* file = Nasmy::fc()->getFile(tab_index);
         absolute_path = file->absolutePath();
 
         bool modified = file->editor()->document()->isModified();
@@ -313,7 +317,11 @@ void MainWindow::updateMenus() {
         actionUndo->setEnabled( file->editor()->document()->isUndoAvailable() );
         actionRedo->setEnabled( file->editor()->document()->isRedoAvailable() );
 
-        setWindowTitle( QString( "[ %1:%2 [*]] - %3" ).arg( "project" ).arg( file->title() ).arg( AppName ) );
+        QString project_title;
+        if (file->project()) {
+            project_title = QString("%1:").arg(file->project()->name());
+        }
+        setWindowTitle( QString( "[ %1%2 [*]] - %3" ).arg( project_title ).arg( file->title() ).arg( AppName ) );
     }
 
     actionSaveAs->setEnabled( at_least_one_opened );
@@ -662,6 +670,35 @@ void MainWindow::onFilesController_fileLoaded( File* file ) {
 }
 
 void MainWindow::onProjectsController_projectLoaded(Project* p) {
+    ProjectItem* project_item = projectsTree->addProjectItem( p );
+
+    //  Add targets
+    foreach (const ProjectTarget& target, p->targets() ) {
+        TargetItem* target_item = projectsTree->addTargetItem( project_item, target.name );
+        foreach (const QString& file, target.files ) {
+            QFileInfo file_info(p->projectFolder(), file);
+            //             file_info.makeAbsolute();
+            Nasmy::mainwindow()->projectsTree->addTargetSourceItem( target_item, file_info );
+        }
+    }
+
+    std::function<void (const QString&, ProjectBaseItem*)> list_recursive = [&] (const QString& s_dir, ProjectBaseItem* parent_item) {
+        QDir dir( s_dir );
+        dir.setFilter(QDir::Files | QDir::Dirs | QDir::NoDotAndDotDot);
+        for ( auto file : dir.entryInfoList() ) {
+            if (file.isDir()) {
+                FolderItem* folder_item = projectsTree->addFolderItem( project_item, file );
+                list_recursive( file.filePath(), folder_item );
+            }
+            else if (file.suffix() != "nasmy") {
+                projectsTree->addSourceItem( parent_item, file );
+            }
+        }
+    };
+    list_recursive( p->projectFolder().absolutePath(), project_item );
+}
+
+void MainWindow::onProjectsController_projectActivated(Project* p) {
     setWindowTitle( QString( "%1 - %2" ).arg( p->name() ).arg( AppName ) );
 }
 
@@ -671,9 +708,15 @@ void MainWindow::on_projectsTree_itemSelectionChanged() {
     addTarget->setEnabled(true);
 }
 
+void MainWindow::on_projectsTree_itemDoubleClicked( QTreeWidgetItem* item, int ) {
+    if ( FileItem* file_item = dynamic_cast<FileItem*>(item) ) {
+        openFile(file_item->absolutePath());
+    }
+}
+
 void MainWindow::on_projectSettings_clicked(bool) {
-    if ( Project* p = dynamic_cast<ProjectItem*>(projectsTree->selectedItems().at(0))->project() ) {
-        ProjectWindow* frm = new ProjectWindow( this, p );
+    if ( ProjectItem* pi = dynamic_cast<ProjectItem*>(projectsTree->selectedItems().at(0)) ) {
+        ProjectWindow* frm = new ProjectWindow( this,  pi->project() );
         QString project_path = frm->exec_and_return_path();
     }
 

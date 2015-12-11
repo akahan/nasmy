@@ -29,9 +29,12 @@ class QStandardItemModel;
 class QCompleter;
 class QStringListModel;
 class AsmEdit;
+class Project;
 
 class File : public QObject {
     Q_OBJECT
+
+    friend class FilesController;
 
     public:
         explicit File( QObject* parent, QString absolute_path = "" );
@@ -41,7 +44,8 @@ class File : public QObject {
         inline const QString& absolutePath() const { return absolute_path; }
         void setAbsolutePath( const QString& value );
 
-        inline AsmEdit* editor() const { return asm_edit; }
+        inline Project* project() const { return m_project; }
+        inline AsmEdit* editor() const { return m_editor; }
 
         void open();
         void save();
@@ -56,7 +60,8 @@ class File : public QObject {
         QString title_str;
         QString absolute_path;
 
-        AsmEdit* asm_edit;
+        Project* m_project;
+        AsmEdit* m_editor;
 };
 
 #endif // FILE_H

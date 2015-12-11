@@ -18,6 +18,10 @@ namespace Nasmy {
         return &instance;
     }
 
+    // **********************************************************************
+    // **********************************************************************
+    // **********************************************************************
+
     MsgButton question( const QString& text, MsgButtons buttons, MsgButton defaultButton ) {
         return QMessageBox::question( nasmy_ui, AppName, text, buttons, defaultButton );
     }

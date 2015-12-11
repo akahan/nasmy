@@ -71,8 +71,8 @@ class MainWindow : public QMainWindow, public Ui::MainWindow {
 //         SearchPanel* searchPanel;
 //         int previousIndex;
 
-        void openProject( const QString& absolute_path = "" );
-        void openFile( const QString& absolute_path = "" );
+        void openProject( const QString& abs_path = "" );
+        void openFile( const QString& abs_path = "" );
         bool closeTabByIndex( const int index );
 
 //         void goToError(QListWidgetItem*);
@@ -134,7 +134,9 @@ class MainWindow : public QMainWindow, public Ui::MainWindow {
         void onFilesController_fileLoaded(File*);
 
         void onProjectsController_projectLoaded(Project*);
+        void onProjectsController_projectActivated(Project*);
         void on_projectsTree_itemSelectionChanged();
+        void on_projectsTree_itemDoubleClicked( QTreeWidgetItem*, int );
         void on_projectSettings_clicked(bool);
         void on_addTarget_clicked(bool);
 };

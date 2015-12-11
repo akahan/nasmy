@@ -19,10 +19,27 @@
 
 #include "projectstreeitem.h"
 #include "project.h"
+#include <QFileInfo>
+#include <QDir>
 
-ProjectItem::ProjectItem( QTreeWidget* parent, Project* project ) : QTreeWidgetItem( parent ), m_project( project ) {
-    setFlags( Qt::ItemIsSelectable | Qt::ItemIsDropEnabled | Qt::ItemIsEnabled );
+FileItem::FileItem( ProjectBaseItem* parent, const QFileInfo& file_info ) : ProjectBaseItem( parent ) {
+    m_absolute_path = file_info.absoluteFilePath();
+    m_name = file_info.fileName();
+}
+
+FileItem::FileItem( FileItem* parent ) : ProjectBaseItem( parent ) {
+    m_absolute_path = parent->m_absolute_path;
+    m_name = parent->m_name;
+}
+
+
+ProjectItem::ProjectItem( QTreeWidget* parent, Project* project ) : ProjectBaseItem( parent, project ) {
     setText( 0, project->name() );
+    initUI();
+}
+
+void ProjectItem::initUI() {
+    setFlags( Qt::ItemIsSelectable | Qt::ItemIsDropEnabled | Qt::ItemIsEnabled );
 
     QIcon icon;
     icon.addFile( QStringLiteral( ":/resources/images/target.svg" ), QSize(), QIcon::Normal, QIcon::On );
@@ -32,11 +49,46 @@ ProjectItem::ProjectItem( QTreeWidget* parent, Project* project ) : QTreeWidgetI
 }
 
 
-TargetItem::TargetItem( QTreeWidgetItem* parent, const QString& name ) : QTreeWidgetItem( parent ) {
-    setFlags( Qt::ItemIsSelectable | Qt::ItemIsDropEnabled | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled );
-    setText( 0, name );
+FolderItem::FolderItem( ProjectBaseItem* parent, const QFileInfo& file_info ) : FileItem( parent, file_info ) {
+    setText( 0, file_info.fileName() );
+    initUI();
+}
 
+void FolderItem::initUI() {
+    setFlags( Qt::ItemIsSelectable | Qt::ItemIsDropEnabled | Qt::ItemIsDragEnabled | Qt::ItemIsEnabled );
+
+    QIcon icon;
+    icon.addFile( QStringLiteral( ":/resources/images/folder.svg" ), QSize(), QIcon::Normal, QIcon::On );
+    setIcon( 0, icon );
+}
+
+
+SourceItem::SourceItem( ProjectBaseItem* parent, const QFileInfo& file_info ) : FileItem( parent, file_info ) {
+    setText( 0, file_info.fileName() );
+    initUI();
+}
+
+// SourceItem::SourceItem(ProjectBaseItem* parent, const QString& rel_path) : FileItem( parent ) {
+//     setText( 0, rel_path );
+// }
+
+void SourceItem::initUI() {
+    setFlags( Qt::ItemIsSelectable | Qt::ItemIsDragEnabled | Qt::ItemIsEnabled );
+
+    QIcon icon;
+    icon.addFile( QStringLiteral( ":/resources/images/file.svg" ), QSize(), QIcon::Normal, QIcon::On );
+    setIcon( 0, icon );
+}
+
+
+TargetItem::TargetItem( ProjectItem* parent, const QString& name ) : ProjectBaseItem( parent ) {
+    setText( 0, name );
     setCheckState(1, Qt::Checked);
+    initUI();
+}
+
+void TargetItem::initUI() {
+    setFlags( Qt::ItemIsSelectable | Qt::ItemIsDropEnabled | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled );
 
     QIcon icon;
     icon.addFile( QStringLiteral( ":/resources/images/target.svg" ), QSize(), QIcon::Normal, QIcon::On );
@@ -49,18 +101,15 @@ TargetItem::TargetItem( QTreeWidgetItem* parent, const QString& name ) : QTreeWi
     setFont( 0, font_target );
 }
 
-FolderItem::FolderItem( QTreeWidgetItem* parent, const QString& name ) : QTreeWidgetItem( parent ) {
-    setFlags( Qt::ItemIsSelectable | Qt::ItemIsDropEnabled | Qt::ItemIsDragEnabled | Qt::ItemIsEnabled );
-    setText( 0, name );
-
-    QIcon icon;
-    icon.addFile( QStringLiteral( ":/resources/images/folder.svg" ), QSize(), QIcon::Normal, QIcon::On );
-    setIcon( 0, icon );
+TargetSourceItem::TargetSourceItem( TargetItem* target, const QFileInfo& file_info  ) : FileItem( target, file_info ) {
+//     setText( 0, project()->projectFolder().relativeFilePath(source->absolutePath()) );
+    QString rel_path = project()->projectFolder().relativeFilePath(file_info.absoluteFilePath());
+    setText( 0, rel_path );
+    initUI();
 }
 
-FileItem::FileItem( QTreeWidgetItem* parent, const QString& name ) : QTreeWidgetItem( parent ) {
+void TargetSourceItem::initUI() {
     setFlags( Qt::ItemIsSelectable | Qt::ItemIsDragEnabled | Qt::ItemIsEnabled );
-    setText( 0, name );
 
     QIcon icon;
     icon.addFile( QStringLiteral( ":/resources/images/file.svg" ), QSize(), QIcon::Normal, QIcon::On );

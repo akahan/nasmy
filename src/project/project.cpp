@@ -22,23 +22,16 @@
 
 #include <QSettings>
 #include <QObject>
-#include <QTreeWidgetItem>
-#include <QDir>
-#include <functional>
 
-
-Project::Project( QObject* parent, QString absolute_path ) : QObject( parent ), absolute_path( absolute_path ) {
+Project::Project( QObject* parent, QString absolute_path ) : QObject( parent ), m_absolute_path( absolute_path ) {
     Q_ASSERT( !absolute_path.isEmpty() );
+    m_project_folder = QFileInfo(m_absolute_path).absoluteDir();
 }
 
 Project::~Project() {}
 
 void Project::open() {
-    ProjectsTree* projectsTree = Nasmy::mainwindow()->projectsTree;
-
-//     Nasmy::mainwindow()->projectsTree->clear();
-
-    QSettings settings( absolute_path, QSettings::NativeFormat );
+    QSettings settings( m_absolute_path, QSettings::NativeFormat );
     settings.beginGroup( "project" );
     m_name = settings.value( "name" ).toString();
     arch_id = settings.value( "arch_id" ).toInt();
@@ -47,36 +40,14 @@ void Project::open() {
     verbose_build = settings.value( "verbose_build" ).toBool();
     settings.endGroup();
 
-    QTreeWidgetItem* project_item = projectsTree->addProjectItem( this );
-
     int size = settings.beginReadArray( "targets" );
     for ( int i = 0; i < size; ++i ) {
         settings.setArrayIndex( i );
         ProjectTarget target;
         target.name = settings.value( "name" ).toString();
         target.files = settings.value( "files" ).toStringList();
-        targets.append( target );
-        files.append( target.files );
-
-        QTreeWidgetItem* target_item = projectsTree->addTargetItem(target.name, project_item);
-        foreach(const QString& file, target.files ) {
-            Nasmy::mainwindow()->projectsTree->addTargetSourceItem(file, target_item);
-        }
+        m_targets.append( target );
+        m_files.append( target.files );
     }
     settings.endArray();
-
-    std::function<void (const QString&, QTreeWidgetItem*)> list_recursive = [&] (const QString& s_dir, QTreeWidgetItem* folder) {
-        QDir dir( s_dir );
-        dir.setFilter(QDir::Files | QDir::Dirs | QDir::NoDotAndDotDot);
-        for ( auto file : dir.entryInfoList() ) {
-            if (file.isDir()) {
-                QTreeWidgetItem* folder_item = projectsTree->addFolderItem(file.fileName(), project_item);
-                list_recursive(file.filePath(), folder_item);
-            }
-            else if (file.suffix() != "nasmy") {
-                projectsTree->addFileItem(file.fileName(), folder);
-            }
-        }
-    };
-    list_recursive( QFileInfo(absolute_path).absoluteDir().absolutePath(), project_item );
 }

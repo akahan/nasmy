@@ -18,7 +18,11 @@
  */
 
 #include "projectscontroller.h"
+#include "projectscontroller.h"
 #include "nasmy.h"
+#include "editor/file.h"
+
+#include <QFileInfo>
 
 ProjectsController::ProjectsController(QObject* parent) : QObject(parent) {
 
@@ -46,6 +50,9 @@ Project * ProjectsController::loadProject( const QString& absolute_path ) {
 
     emit projectLoaded(p);
 
+    m_active_project = p;
+    emit projectActivated(p);
+
     return p;
 }
 
@@ -53,6 +60,18 @@ Project* ProjectsController::getProject( const QString& absolute_path ) {
     foreach( Project* p, projectsList ) {
         if ( p->absolutePath() == absolute_path ) {
             return p;
+        }
+    }
+    return NULL;
+}
+
+Project * ProjectsController::getProject( const File* file ) {
+    foreach( Project* p, projectsList ) {
+        foreach( const QString& rel_path, p->files() ) {
+            QFileInfo file_info(p->projectFolder(), rel_path);
+            if ( file->absolutePath() == file_info.absoluteFilePath() ) {
+                return p;
+            }
         }
     }
     return NULL;

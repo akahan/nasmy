@@ -20,7 +20,7 @@
 <context>
     <name>FilesController</name>
     <message>
-        <location filename="../editor/filescontroller.cpp" line="41"/>
+        <location filename="../editor/filescontroller.cpp" line="43"/>
         <source>Error reading file %1:
 %2.</source>
         <translation>Ошибка чтения файла %1:
@@ -481,74 +481,74 @@
         <translation>Собрать все</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="86"/>
+        <location filename="../mainwindow.cpp" line="89"/>
         <source>Ready</source>
         <translation>Готов</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="205"/>
+        <location filename="../mainwindow.cpp" line="208"/>
         <source>The document was changed. Do you want to save changes?</source>
         <translation>Документ был изменен. Сохранить изменения?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="227"/>
+        <location filename="../mainwindow.cpp" line="230"/>
         <source>Error write file %1:
 %2.</source>
         <translation>Ошибка записи файла %1:
 %2.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="233"/>
+        <location filename="../mainwindow.cpp" line="236"/>
         <source>File saved</source>
         <translation>Файл сохранен</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="276"/>
+        <location filename="../mainwindow.cpp" line="279"/>
         <source>Open project</source>
         <translation>Открыть проект</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="278"/>
+        <location filename="../mainwindow.cpp" line="281"/>
         <source>Nasmy projects (*.nasmy)</source>
         <translation>Проекты Nasmy (*.nasmy)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="296"/>
+        <location filename="../mainwindow.cpp" line="299"/>
         <source>Project loaded</source>
         <translation>Проект загружен</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="242"/>
+        <location filename="../mainwindow.cpp" line="245"/>
         <source>Open files</source>
         <translation>Открыть файлы</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="244"/>
+        <location filename="../mainwindow.cpp" line="247"/>
         <source>NASM assembler files (*.asm *.nasm *.inc *.ninc);;All files (*)</source>
         <translation>Файла ассемблера NASM (*.asm *.nasm *.inc *.ninc);;Все файлы (*)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="255"/>
+        <location filename="../mainwindow.cpp" line="258"/>
         <source>All files loaded</source>
         <translation>Все файлы загружены</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="266"/>
+        <location filename="../mainwindow.cpp" line="269"/>
         <source>File loaded</source>
         <translation>Файл загружен</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="290"/>
+        <location filename="../mainwindow.cpp" line="293"/>
         <source>Project already loaded</source>
         <translation>Проект уже загружен</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="530"/>
+        <location filename="../mainwindow.cpp" line="537"/>
         <source>Save as</source>
         <translation>Сохранить как</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="532"/>
+        <location filename="../mainwindow.cpp" line="539"/>
         <source>All files (*);;NASM assembler files (*.asm *.nasm *.inc *.ninc)</source>
         <translation>Все файлы (*);;Файлы ассемблера NASM (*.asm *.nasm *.inc *.ninc)</translation>
     </message>
@@ -629,7 +629,7 @@
 <context>
     <name>ProjectsController</name>
     <message>
-        <location filename="../project/projectscontroller.cpp" line="43"/>
+        <location filename="../project/projectscontroller.cpp" line="47"/>
         <source>Error reading project %1:
 %2.</source>
         <translation>Ошибка чтения проекта %1:

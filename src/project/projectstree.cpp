@@ -22,6 +22,8 @@
 #include "project.h"
 #include "mainwindow.h"
 
+// #include <QFileInfo>
+
 ProjectsTree::ProjectsTree( QWidget* parent ) : QTreeWidget( parent ) {
     setColumnCount(2);
     header()->setMinimumSectionSize(20);
@@ -31,33 +33,33 @@ ProjectsTree::ProjectsTree( QWidget* parent ) : QTreeWidget( parent ) {
 //     header()->resizeSection(1, 26);
 }
 
-QTreeWidgetItem * ProjectsTree::addProjectItem(Project* p) {
-    QTreeWidgetItem* target = new ProjectItem( this, p );
-    target->setData( 0, Qt::UserRole, QVariant::fromValue(p) );
+ProjectItem * ProjectsTree::addProjectItem(Project* project) {
+    ProjectItem* target = new ProjectItem( this, project );
+    target->setData( 0, Qt::UserRole, QVariant::fromValue(project) );
     addTopLevelItem( target );
     return target;
 }
 
-QTreeWidgetItem * ProjectsTree::addTargetItem( const QString& name, QTreeWidgetItem* parent ) {
-    QTreeWidgetItem* target = new TargetItem( parent, name );
+TargetItem * ProjectsTree::addTargetItem( ProjectItem* project_item, const QString& name ) {
+    TargetItem* target = new TargetItem( project_item, name );
     addTopLevelItem( target );
     return target;
 }
 
-QTreeWidgetItem * ProjectsTree::addFolderItem( const QString& name, QTreeWidgetItem* parent ) {
-    QTreeWidgetItem* folder = new FolderItem( parent, name );
-    addTopLevelItem( folder );
-    return folder;
-}
-
-QTreeWidgetItem* ProjectsTree::addTargetSourceItem( const QString& name, QTreeWidgetItem* target ) {
-    QTreeWidgetItem* file = new FileItem( target, name );
+TargetSourceItem* ProjectsTree::addTargetSourceItem( TargetItem* target, const QFileInfo& file_info ) {
+    TargetSourceItem* file = new TargetSourceItem( target, file_info );
     addTopLevelItem( file );
     return file;
 }
 
-QTreeWidgetItem * ProjectsTree::addFileItem( const QString& name, QTreeWidgetItem* folder ) {
-    QTreeWidgetItem* file = new FileItem( folder, name );
+FolderItem * ProjectsTree::addFolderItem( ProjectBaseItem* parent, const QFileInfo& file_info ) {
+    FolderItem* folder = new FolderItem( parent, file_info );
+    addTopLevelItem( folder );
+    return folder;
+}
+
+SourceItem * ProjectsTree::addSourceItem( ProjectBaseItem* folder, const QFileInfo& file_info ) {
+    SourceItem* file = new SourceItem( folder, file_info );
     addTopLevelItem( file );
     return file;
 }

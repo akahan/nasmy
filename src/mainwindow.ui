@@ -13,6 +13,9 @@
   <property name="windowTitle">
    <string notr="true">Nasmy</string>
   </property>
+  <property name="toolTipDuration">
+   <number>2</number>
+  </property>
   <property name="documentMode">
    <bool>true</bool>
   </property>
@@ -255,6 +258,9 @@
            <property name="contextMenuPolicy">
             <enum>Qt::PreventContextMenu</enum>
            </property>
+           <property name="toolTip">
+            <string>Add a new target to the selected project</string>
+           </property>
            <property name="text">
             <string>Add target</string>
            </property>
@@ -280,6 +286,9 @@
            </property>
            <property name="cursor">
             <cursorShape>PointingHandCursor</cursorShape>
+           </property>
+           <property name="toolTip">
+            <string>Open the project settings</string>
            </property>
            <property name="text">
             <string>Project settings</string>
@@ -730,7 +739,7 @@
      <normaloff>../../../.designer/backup</normaloff>../../../.designer/backup</iconset>
    </property>
    <property name="text">
-    <string>&amp;Open file</string>
+    <string>&amp;Open file...</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+O</string>
@@ -808,7 +817,7 @@
      <normaloff>../../../.designer/backup</normaloff>../../../.designer/backup</iconset>
    </property>
    <property name="text">
-    <string>&amp;Settings</string>
+    <string>&amp;Settings...</string>
    </property>
   </action>
   <action name="actionAboutQt">
@@ -966,7 +975,10 @@
      <normaloff>../../../.designer/backup</normaloff>../../../.designer/backup</iconset>
    </property>
    <property name="text">
-    <string>&amp;New project</string>
+    <string>&amp;New project...</string>
+   </property>
+   <property name="toolTip">
+    <string>Create a new project</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+Shift+N</string>
@@ -1013,7 +1025,7 @@
      <normaloff>../../../.designer/backup</normaloff>../../../.designer/backup</iconset>
    </property>
    <property name="text">
-    <string>&amp;Open project</string>
+    <string>&amp;Open project...</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+Shift+O</string>
@@ -1177,6 +1189,10 @@
    </property>
    <property name="checked">
     <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset theme="show-menu">
+     <normaloff>.</normaloff>.</iconset>
    </property>
    <property name="text">
     <string>Show &amp;menu bar</string>

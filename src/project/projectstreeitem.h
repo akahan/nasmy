@@ -23,29 +23,71 @@
 #include <QTreeWidgetItem>
 
 class Project;
+class QFileInfo;
 
-class ProjectItem : public QTreeWidgetItem {
+class ProjectBaseItem : public QTreeWidgetItem {
     public:
-        explicit ProjectItem( QTreeWidget* parent, Project* project );
+        ProjectBaseItem( QTreeWidget* tree, Project* project ) : QTreeWidgetItem(tree), m_project( project ) {};
+        ProjectBaseItem( QTreeWidgetItem* parent, Project* project ) : QTreeWidgetItem(parent), m_project( project ) {};
+        ProjectBaseItem( ProjectBaseItem* parent ) : QTreeWidgetItem(parent), m_project( parent->m_project ) {};
+
         inline Project* project() const { return m_project; };
+
+        virtual void initUI() = 0;
 
     private:
         Project* m_project;
 };
 
-class TargetItem : public QTreeWidgetItem {
+class FileItem : public ProjectBaseItem {
     public:
-        explicit TargetItem( QTreeWidgetItem* parent, const QString& name );
+        explicit FileItem( ProjectBaseItem* parent, const QFileInfo& );
+        explicit FileItem( FileItem* parent );
+
+        inline const QString& absolutePath() const { return m_absolute_path; }
+        inline const QString& name() const { return m_name; }
+
+        virtual void initUI() {};
+
+    private:
+        QString m_absolute_path;
+        QString m_name;
 };
 
-class FolderItem : public QTreeWidgetItem {
+class ProjectItem : public ProjectBaseItem {
     public:
-        explicit FolderItem( QTreeWidgetItem* parent, const QString& name );
+        explicit ProjectItem( QTreeWidget* parent, Project* project );
+
+        virtual void initUI();
 };
 
-class FileItem : public QTreeWidgetItem {
+class FolderItem : public FileItem {
     public:
-        explicit FileItem( QTreeWidgetItem* parent, const QString& name );
+        explicit FolderItem( ProjectBaseItem* parent, const QFileInfo& );
+
+        virtual void initUI();
+};
+
+class SourceItem : public FileItem {
+    public:
+        explicit SourceItem( ProjectBaseItem* parent, const QFileInfo& );
+//         explicit SourceItem( ProjectBaseItem* parent, const QString& rel_path );
+
+        virtual void initUI();
+};
+
+class TargetItem : public ProjectBaseItem {
+    public:
+        explicit TargetItem( ProjectItem* parent, const QString& name );
+
+        virtual void initUI();
+};
+
+class TargetSourceItem : public FileItem {
+    public:
+        explicit TargetSourceItem( TargetItem* parent, const QFileInfo& );
+
+        virtual void initUI();
 };
 
 #endif // PROJECTSTREEITEM_H

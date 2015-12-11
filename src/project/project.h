@@ -21,6 +21,7 @@
 #define PROJECT_H
 
 #include <QObject>
+#include <QDir>
 
 struct ProjectTarget {
     QString name;
@@ -32,27 +33,33 @@ typedef QList<ProjectTarget> ProjectTargetsList;
 class Project : public QObject {
     Q_OBJECT
 
+    friend class ProjectsController;
+
     public:
         explicit Project( QObject* parent, QString absolute_path );
         ~Project();
 
         inline const QString& name() const { return m_name; }
-        inline const QString& absolutePath() const { return absolute_path; }
+        inline const QString& absolutePath() const { return m_absolute_path; }
+        inline const QDir& projectFolder() const { return m_project_folder; }
         inline const QString& assemblyOptions() const { return assembly_options; }
         inline const QString& linkingOptions() const { return linking_options; }
         inline const bool verboseBuild() const { return verbose_build; }
+        inline const ProjectTargetsList& targets() const { return m_targets; }
+        inline const QStringList& files() const { return m_files; }
 
         void open();
 
     private:
         QString m_name;
-        QString absolute_path;
+        QString m_absolute_path;
+        QDir m_project_folder;
         int arch_id;
         QString assembly_options;
         QString linking_options;
         bool verbose_build;
-        ProjectTargetsList targets;
-        QStringList files;
+        ProjectTargetsList m_targets;
+        QStringList m_files;
 };
 
 #endif // PROJECT_H
