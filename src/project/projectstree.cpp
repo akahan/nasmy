@@ -40,8 +40,8 @@ ProjectItem * ProjectsTree::addProjectItem(Project* project) {
     return target;
 }
 
-TargetItem * ProjectsTree::addTargetItem( ProjectItem* project_item, const QString& name ) {
-    TargetItem* target = new TargetItem( project_item, name );
+TargetItem * ProjectsTree::addTargetItem( ProjectItem* project_item, const ProjectTarget& project_target ) {
+    TargetItem* target = new TargetItem( project_item, project_target );
     addTopLevelItem( target );
     return target;
 }

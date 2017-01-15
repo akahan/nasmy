@@ -28,6 +28,7 @@
 class File;
 class Project;
 class AsmEdit;
+class Highlighter;
 // class QListWidgetItem;
 
 class MainWindow : public QMainWindow, public Ui::MainWindow {
@@ -53,9 +54,23 @@ class MainWindow : public QMainWindow, public Ui::MainWindow {
         void saveSettings();
         void setupActions();
         void updateMenus();
+        void updateRecentFileList();
+        void updateRecentProjectList();
 
-        bool saveFile();
+        bool saveFileByIndex( const int index = -1 );
         bool maybeSave();
+        bool saveFileAs();
+        bool closeAllFiles();
+
+        void openFile( const QString& abs_path = "" );
+        void openProject( const QString& abs_path = "" );
+        bool closeTabByIndex( const int index );
+
+//         void goToError(QListWidgetItem*);
+        void formatFile();
+
+        //         SearchPanel* searchPanel;
+        //         int previousIndex;
 
         enum { MaxRecentFiles = 10 };
         QAction* recentFileSeparator;
@@ -64,21 +79,8 @@ class MainWindow : public QMainWindow, public Ui::MainWindow {
         QAction* recentProjectActions[MaxRecentFiles];
         QStringList closedFileNames;
         QStringList closedProjectNames;
-        void updateRecentFileList();
-        void updateRecentProjectList();
 
-
-//         SearchPanel* searchPanel;
-//         int previousIndex;
-
-        void openProject( const QString& abs_path = "" );
-        void openFile( const QString& abs_path = "" );
-        bool closeTabByIndex( const int index );
-
-//         void goToError(QListWidgetItem*);
-        void formatFile();
-
-    private slots:
+private slots:
         void on_actionNewProject_triggered();
         void on_actionOpenProject_triggered();
         void on_actionClearRecentProjects_triggered();
@@ -102,7 +104,7 @@ class MainWindow : public QMainWindow, public Ui::MainWindow {
         bool on_actionSaveAs_triggered();
         void on_actionSaveAll_triggered();
         void on_actionClose_triggered();
-        bool on_actionCloseAll_triggered();
+        void on_actionCloseAll_triggered();
         void on_actionExit_triggered();
 
         void on_actionUndo_triggered();

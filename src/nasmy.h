@@ -35,7 +35,7 @@ class QWidget;
 #define MsgButtons QMessageBox::StandardButtons
 
 namespace Nasmy {
-    extern QWidget* nasmy_ui;
+    extern MainWindow* nasmy_ui;
 
     MainWindow* mainwindow();
     ProjectsController* pc();

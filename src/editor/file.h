@@ -22,14 +22,14 @@
 
 #include <QObject>
 
-class QString;
-class Highlighter;
-class QStandardItem;
-class QStandardItemModel;
-class QCompleter;
-class QStringListModel;
 class AsmEdit;
 class Project;
+class Highlighter;
+class Assembler;
+// class QStandardItem;
+// class QStandardItemModel;
+// class QCompleter;
+// class QStringListModel;
 
 class File : public QObject {
     Q_OBJECT
@@ -40,8 +40,8 @@ class File : public QObject {
         explicit File( QObject* parent, QString absolute_path = "" );
         ~File();
 
-        inline const QString& title() const { return title_str; }
-        inline const QString& absolutePath() const { return absolute_path; }
+        inline const QString& title() const { return m_title; }
+        inline const QString& absolutePath() const { return m_absolute_path; }
         void setAbsolutePath( const QString& value );
 
         inline Project* project() const { return m_project; }
@@ -57,11 +57,13 @@ class File : public QObject {
     public slots:
 
     private:
-        QString title_str;
-        QString absolute_path;
+        QString m_title;
+        QString m_absolute_path;
 
         Project* m_project;
         AsmEdit* m_editor;
+        Highlighter* m_highlighter;
+        Assembler* m_asm;
 };
 
 #endif // FILE_H

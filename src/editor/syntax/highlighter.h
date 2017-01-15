@@ -23,9 +23,15 @@
 #include <QSyntaxHighlighter>
 #include <QTextCharFormat>
 
-class Highlighter: public QSyntaxHighlighter {
-        Q_OBJECT
+struct HighlightingRule {
+    HighlightingRule() : isComment(false) {
+    }
+    QRegExp pattern; //pattern to highlight
+    QTextCharFormat format; //highlighting format
+    bool isComment;
+};
 
+class Highlighter : public QSyntaxHighlighter {
     public:
         Highlighter(QTextDocument* parent = 0);
 

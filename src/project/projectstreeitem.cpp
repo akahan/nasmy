@@ -81,10 +81,21 @@ void SourceItem::initUI() {
 }
 
 
-TargetItem::TargetItem( ProjectItem* parent, const QString& name ) : ProjectBaseItem( parent ) {
-    setText( 0, name );
+TargetItem::TargetItem( ProjectItem* parent, const ProjectTarget& target ) : ProjectBaseItem( parent ) {
+    setText( 0, target.name );
+
     setCheckState(1, Qt::Checked);
+
     initUI();
+
+    QFont font_target( font( 0 ) );
+    font_target.setBold( true );
+    if (target.is_main)
+        font_target.setUnderline( true );
+    //     font_target.setItalic(true);
+    //     font_target.setWeight(75);
+    setFont( 0, font_target );
+
 }
 
 void TargetItem::initUI() {
@@ -93,12 +104,6 @@ void TargetItem::initUI() {
     QIcon icon;
     icon.addFile( QStringLiteral( ":/resources/images/target.svg" ), QSize(), QIcon::Normal, QIcon::On );
     setIcon( 0, icon );
-
-    QFont font_target( font( 0 ) );
-    font_target.setBold( true );
-    //     font_target.setItalic(true);
-    //     font_target.setWeight(75);
-    setFont( 0, font_target );
 }
 
 TargetSourceItem::TargetSourceItem( TargetItem* target, const QFileInfo& file_info  ) : SourceItem( target, file_info ) {

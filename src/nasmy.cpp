@@ -2,10 +2,10 @@
 #include "nasmy.h"
 
 namespace Nasmy {
-    QWidget* nasmy_ui = NULL;
+    MainWindow* nasmy_ui = NULL;
 
     MainWindow* mainwindow() {
-        return qobject_cast<MainWindow*>(Nasmy::nasmy_ui);
+        return Nasmy::nasmy_ui;
     }
 
     ProjectsController* pc() {

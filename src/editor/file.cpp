@@ -20,20 +20,22 @@
 #include "file.h"
 #include "nasmy.h"
 #include "asmedit.h"
+#include "syntax/highlighter.h"
 // #include "completerpopupmodel.h"
 
 #include <QFileInfo>
+#include <QDir>
 // #include <QStandardItemModel>
 // #include <QApplication>
 // #include <QRegExp>
 // #include <QStringListModel>
 // #include <QUrl>
-#include <QDir>
+
 #include <QtDebug>
 
 File::File( QObject* parent, QString absolute_path ) : QObject( parent ) {
     m_editor = new AsmEdit( Nasmy::mainwindow() );
-
+    m_highlighter = new Highlighter(m_editor->document());
     setAbsolutePath(absolute_path);
 }
 
@@ -42,21 +44,21 @@ File::~File() {
 }
 
 void File::setAbsolutePath(const QString& value) {
-    absolute_path = value;
-    if ( !absolute_path.isEmpty() ) {
-        title_str = QFileInfo( absolute_path ).fileName();
+    m_absolute_path = value;
+    if ( !m_absolute_path.isEmpty() ) {
+        m_title = QFileInfo( m_absolute_path ).fileName();
 
-        if ( title_str.length() > 20 ) {
-            title_str = title_str.left( 12 ) + "...";
+        if ( m_title.length() > 20 ) {
+            m_title = m_title.left( 12 ) + "...";
         }
     }
     else {
-        title_str = tr( "Untitled" );
+        m_title = tr( "Untitled" );
     }
 }
 
 void File::open() {
-    QFile file( absolute_path );
+    QFile file( m_absolute_path );
     if ( !file.open( QFile::ReadOnly | QFile::Text ) ) {
         throw file.errorString();
     }
@@ -69,7 +71,7 @@ void File::open() {
 }
 
 void File::save() {
-    QFile file( absolute_path );
+    QFile file( m_absolute_path );
 
     if ( !file.open( QFile::WriteOnly | QFile::Text ) ) {
         throw file.errorString();

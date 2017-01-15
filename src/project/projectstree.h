@@ -32,6 +32,8 @@ class SourceItem;
 class TargetItem;
 class TargetSourceItem;
 
+struct ProjectTarget;
+
 class ProjectsTree : public QTreeWidget {
     Q_OBJECT
 
@@ -42,7 +44,7 @@ class ProjectsTree : public QTreeWidget {
         ProjectItem* addProjectItem(Project*);
         FolderItem* addFolderItem( ProjectBaseItem* parent, const QFileInfo& );
         SourceItem* addSourceItem( ProjectBaseItem* folder, const QFileInfo& );
-        TargetItem* addTargetItem( ProjectItem*, const QString& name );
+        TargetItem* addTargetItem( ProjectItem*, const ProjectTarget& );
         TargetSourceItem* addTargetSourceItem( TargetItem*, const QFileInfo& );
 
     private:

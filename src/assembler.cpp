@@ -1,5 +1,5 @@
 /*
- * <one line to give the program's name and a brief idea of what it does.>
+ * <one line to give the library's name and an idea of what it does.>
  * Copyright (C) 2015  Roman Yusufkhanov <r.yusufkhanov@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -17,20 +17,11 @@
  *
  */
 
-#include "highlighter.h"
+#include "assembler.h"
 
-#include <QRegExp>
-#include <QDebug>
-#include <QTextCharFormat>
-#include <QTextDocument>
-#include <QDomDocument>
-
-Highlighter::Highlighter(QTextDocument* parent) : QSyntaxHighlighter(parent) {
-    HighlightingRule rule;
-
-    QDomDocument syntax(":/syntax/nasm.xml");
-
+Assembler::Assembler(const QString& arch) : QObject() {
+    m_architecure = arch;
 }
 
-void Highlighter::highlightBlock(const QString& text) {
+Assembler::~Assembler() {
 }

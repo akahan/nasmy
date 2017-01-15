@@ -15,6 +15,7 @@ find_package(Qt5
     Widgets
     Quick
     QuickWidgets
+    Xml
 )
 find_package(OktetaGui REQUIRED)
 
@@ -34,8 +35,8 @@ set(NASMY_SRC
     editor/asmedit.cpp
     editor/file.cpp
     editor/filescontroller.cpp
-#     editor/syntax/highlighter.cpp
-#     editor/completerpopupmodel.cpp
+    editor/syntax/highlighter.cpp
+    editor/completion/completerpopupmodel.cpp
     qfileedit.cpp
 )
 
@@ -47,6 +48,7 @@ target_link_libraries(nasmy
     Qt5::Widgets
     Qt5::Quick
     Qt5::QuickWidgets
+    Qt5::Xml
     OktetaCore
     OktetaGui
 )

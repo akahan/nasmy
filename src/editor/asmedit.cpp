@@ -56,18 +56,18 @@ AsmEdit::AsmEdit( QWidget* parent ) : QPlainTextEdit( parent ) {
     debug_image = QIcon( ":/resources/images/debug_point.svg" ).pixmap( ih, ih );
     break_image = QIcon( ":/resources/images/break_point.svg" ).pixmap( ih, ih );
     dbg_area_width = fh + 2;
-    curr_dbg_line = 10;
 
-    setFrameShape( QFrame::NoFrame );
-    breakpoints.append( 1 );
-    breakpoints.append( 4 );
-    breakpoints.append( 7 );
-    breakpoints.append( 10 );
+//     curr_dbg_line = 10;
+//     breakpoints.append( 1 );
+//     breakpoints.append( 4 );
+//     breakpoints.append( 7 );
+//     breakpoints.append( 10 );
 
     can_breakpoints = true;
     show_line_numbers = true;
     side_area = new SideArea( this );
 
+    setFrameShape( QFrame::NoFrame );
 //     setWordWrapMode(QTextOption::NoWrap);
 //     setWordWrapMode(QTextOption::WordWrap);
 //     setWordWrapMode(QTextOption::WrapAnywhere);
@@ -86,8 +86,10 @@ AsmEdit::AsmEdit( QWidget* parent ) : QPlainTextEdit( parent ) {
 //
 //     clearColor.setRgb(45,45,45);
 //
-    connect( this, SIGNAL( blockCountChanged( int ) ), this, SLOT( updateAdditionalAreaWidth( int ) ) );
-    connect( this, SIGNAL( updateRequest( QRect, int ) ), this, SLOT( onUpdateRequest( QRect, int ) ) );
+//     connect( this, SIGNAL( blockCountChanged( int ) ), this, SLOT( updateAdditionalAreaWidth( int ) ) );
+//     connect( this, SIGNAL( updateRequest( QRect, int ) ), this, SLOT( onUpdateRequest( QRect, int ) ) );
+    connect( this, &AsmEdit::blockCountChanged, this, &AsmEdit::updateAdditionalAreaWidth );
+    connect( this, &AsmEdit::updateRequest, this, &AsmEdit::onUpdateRequest );
 }
 
 AsmEdit::~AsmEdit() {

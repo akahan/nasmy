@@ -78,6 +78,7 @@ void ProjectWindow::saveProject() {
     if ( dir.mkpath( project_folder ) ) {
         QString project_absolute_path = QString( "%1/%2.nasmy" ).arg( project_folder ).arg( nameEdit->text() );
         QSettings settings( project_absolute_path, QSettings::NativeFormat );
+
         settings.beginGroup( "project" );
         settings.setValue( "name", nameEdit->text() );
         settings.setValue( "arch_id", archiComboBox->currentIndex() );
@@ -85,6 +86,7 @@ void ProjectWindow::saveProject() {
         settings.setValue( "linking_options", linkingOptionsEdit->text() );
         settings.setValue( "verbose_build", verboseBuild->isChecked() );
         settings.endGroup();
+
         settings.beginWriteArray( "targets" );
         settings.setArrayIndex( 0 );
         settings.setValue( "name", nameEdit->text() );

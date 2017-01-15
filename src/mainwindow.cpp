@@ -26,20 +26,17 @@
 #include "project/projectstreeitem.h"
 #include "editor/asmedit.h"
 
-
 #include <QFileDialog>
-#include <QDebug>
-// #include "editor/syntax/highlighter.h"
-#include <QJsonDocument>
-#include <QJsonObject>
-#include <QJsonArray>
 #include <QUrl>
 #include <QTabBar>
 #include <QTextCursor>
 #include <QMimeData>
 #include <QTreeWidgetItem>
 #include <QDir>
+#include <QClipboard>
 #include <functional>
+
+#include <QtDebug>
 
 // #include <QQuickWidget>
 // #include <QtQml/QQmlEngine>
@@ -81,10 +78,11 @@ MainWindow::MainWindow( QWidget* parent ) : QMainWindow( parent ) {
 //     tabFiles->setVisible(false);
 //     setCentralWidget(view);
 
-//     newFileController( "/home/jonny/projects/nasmy/test/testnum" );
+//     newFileController( "/home/akahan/projects/nasmy/test/testnum" );
 //     newFileController();
 
-    openProject( "/home/jonny/projects/testpto/testpto.nasmy" );
+    openProject( "/home/akahan/projects/testpto/testpto.nasmy" );
+    openFile( "/home/akahan/projects/testpto/src/main.asm" );
 
     statusBar()->showMessage( tr( "Ready" ) );
 }
@@ -190,7 +188,7 @@ void MainWindow::setupActions() {
 
 void MainWindow::closeEvent( QCloseEvent* event ) {
 //     QMainWindow::closeEvent( event );
-    if ( on_actionCloseAll_triggered() ) {
+    if ( closeAllFiles() ) {
         saveSettings();
         event->accept();
     }
@@ -212,7 +210,7 @@ bool MainWindow::maybeSave() {
         );
 
     if ( ret == QMessageBox::Save ) {
-        return on_actionSaveFile_triggered();
+        return saveFileByIndex();
     }
     else if ( ret == QMessageBox::Cancel ) {
         return false;
@@ -221,8 +219,16 @@ bool MainWindow::maybeSave() {
     return true;
 }
 
-bool MainWindow::saveFile() {
-    File* file = Nasmy::fc()->getFile( tabSources->currentIndex() );
+bool MainWindow::saveFileByIndex( const int index ) {
+    int currentIndex = index;
+    if (index == -1)
+        currentIndex = tabSources->currentIndex();
+
+    if ( Nasmy::fc()->getFile(currentIndex)->absolutePath().isEmpty() ) {
+        return saveFileAs();
+    }
+
+    File* file = Nasmy::fc()->getFile(currentIndex);
 
     try {
         file->save();
@@ -237,6 +243,37 @@ bool MainWindow::saveFile() {
     statusBar()->showMessage( tr( "File saved" ), 2000 );
 
     return true;
+}
+
+bool MainWindow::saveFileAs() {
+    int currentIndex = tabSources->currentIndex();
+
+    File* file = Nasmy::fc()->getFile(currentIndex);
+    QString absolute_path = file->absolutePath();
+
+    absolute_path = QFileDialog::getSaveFileName( this,
+        tr( "Save as" ),
+        absolute_path,
+        tr( "All files (*);;NASM assembler files (*.asm *.nasm *.inc *.ninc)" )
+    );
+    if ( absolute_path.isEmpty() ) {
+        return false;
+    }
+
+    file->setAbsolutePath( absolute_path );
+    tabSources->setTabText( currentIndex, QFileInfo( absolute_path ).fileName() );
+
+    return saveFileByIndex(currentIndex);
+}
+
+bool MainWindow::closeAllFiles() {
+    bool can_continue = true;
+
+    while ( tabSources->count() && can_continue ) {
+        can_continue = closeTabByIndex( 0 );
+    }
+
+    return can_continue;
 }
 
 void MainWindow::openFile( const QString& absolute_path ) {
@@ -313,7 +350,6 @@ void MainWindow::updateMenus() {
         absolute_path = file->absolutePath();
 
         bool modified = file->editor()->document()->isModified();
-        actionSaveFile->setEnabled( modified );
         setWindowModified( modified );
         actionUndo->setEnabled( file->editor()->document()->isUndoAvailable() );
         actionRedo->setEnabled( file->editor()->document()->isRedoAvailable() );
@@ -325,6 +361,7 @@ void MainWindow::updateMenus() {
         setWindowTitle( QString( "[ %1%2 [*]] - %3" ).arg( project_title ).arg( file->title() ).arg( AppName ) );
     }
 
+    actionSaveFile->setEnabled( at_least_one_opened );
     actionSaveAs->setEnabled( at_least_one_opened );
     actionSaveAll->setEnabled( at_least_one_opened );
     actionClose->setEnabled( at_least_one_opened );
@@ -519,41 +556,17 @@ void MainWindow::onActionRecentFileOpen_triggered() {
 }
 
 bool MainWindow::on_actionSaveFile_triggered() {
-    int currentIndex = tabSources->currentIndex();
-
-    if ( Nasmy::fc()->getFile( currentIndex )->absolutePath().isEmpty() ) {
-        return on_actionSaveAs_triggered();
-    }
-    else {
-        return saveFile();
-    }
+    return saveFileByIndex();
 }
 
 bool MainWindow::on_actionSaveAs_triggered() {
-    File* file = Nasmy::fc()->getFile( tabSources->currentIndex() );
-    QString absolute_path = file->absolutePath();
-
-    absolute_path =
-        QFileDialog::getSaveFileName( this,
-            tr( "Save as" ),
-            absolute_path,
-            tr( "All files (*);;NASM assembler files (*.asm *.nasm *.inc *.ninc)" )
-        );
-
-    if ( absolute_path.isEmpty() ) {
-        return false;
-    }
-
-    file->setAbsolutePath( absolute_path );
-    tabSources->setTabText( tabSources->currentIndex(), QFileInfo( absolute_path ).fileName() );
-
-    return saveFile();
+    return saveFileAs();
 }
 
 void MainWindow::on_actionSaveAll_triggered() {
-//     for ( int i = 0; i < tabSources->count(); ++i ) {
-//         closeTabByIndex( i );
-//     }
+    for ( int i = 0; i < tabSources->count(); ++i ) {
+        saveFileByIndex( i );
+    }
 }
 
 bool MainWindow::closeTabByIndex( const int index ) {
@@ -607,14 +620,8 @@ void MainWindow::on_actionClose_triggered() {
     }
 }
 
-bool MainWindow::on_actionCloseAll_triggered() {
-    bool can_continue = true;
-
-    while ( tabSources->count() && can_continue ) {
-        can_continue = closeTabByIndex( 0 );
-    }
-
-    return can_continue;
+void MainWindow::on_actionCloseAll_triggered() {
+    closeAllFiles();
 }
 
 void MainWindow::on_actionExit_triggered() {
@@ -675,11 +682,11 @@ void MainWindow::onProjectsController_projectLoaded(Project* p) {
 
     //  Add targets
     foreach (const ProjectTarget& target, p->targets() ) {
-        TargetItem* target_item = projectsTree->addTargetItem( project_item, target.name );
+        TargetItem* target_item = projectsTree->addTargetItem( project_item, target );
         foreach (const QString& file, target.files ) {
             QFileInfo file_info(p->projectFolder(), file);
             //             file_info.makeAbsolute();
-            Nasmy::mainwindow()->projectsTree->addTargetSourceItem( target_item, file_info );
+            projectsTree->addTargetSourceItem( target_item, file_info );
         }
     }
 
@@ -688,7 +695,7 @@ void MainWindow::onProjectsController_projectLoaded(Project* p) {
         dir.setFilter( QDir::Files | QDir::Dirs | QDir::NoDotAndDotDot );
         for ( auto file : dir.entryInfoList() ) {
             if (file.isDir()) {
-                FolderItem* folder_item = projectsTree->addFolderItem( project_item, file );
+                FolderItem* folder_item = projectsTree->addFolderItem( parent_item, file );
                 list_recursive( file.filePath(), folder_item );
             }
             else if (file.suffix() != "nasmy") {

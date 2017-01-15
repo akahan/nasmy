@@ -25,6 +25,8 @@
 class Project;
 class QFileInfo;
 
+struct ProjectTarget;
+
 class ProjectBaseItem : public QTreeWidgetItem {
     public:
         ProjectBaseItem( QTreeWidget* tree, Project* project ) : QTreeWidgetItem(tree), m_project( project ) {};
@@ -78,7 +80,7 @@ class SourceItem : public FileItem {
 
 class TargetItem : public ProjectBaseItem {
     public:
-        explicit TargetItem( ProjectItem* parent, const QString& name );
+        explicit TargetItem( ProjectItem* parent, const ProjectTarget& target );
 
         virtual void initUI();
 };

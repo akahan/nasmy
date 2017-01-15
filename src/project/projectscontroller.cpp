@@ -18,7 +18,6 @@
  */
 
 #include "projectscontroller.h"
-#include "projectscontroller.h"
 #include "nasmy.h"
 #include "editor/file.h"
 

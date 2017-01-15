@@ -32,18 +32,21 @@ Project::~Project() {}
 
 void Project::open() {
     QSettings settings( m_absolute_path, QSettings::NativeFormat );
+
     settings.beginGroup( "project" );
     m_name = settings.value( "name" ).toString();
-    arch_id = settings.value( "arch_id" ).toInt();
-    assembly_options = settings.value( "assembly_options" ).toString();
-    linking_options = settings.value( "linking_options" ).toString();
-    verbose_build = settings.value( "verbose_build" ).toBool();
+    m_arch_id = settings.value( "arch_id" ).toInt();
+    m_assembly_options = settings.value( "assembly_options" ).toString();
+    m_linking_options = settings.value( "linking_options" ).toString();
+    m_verbose_build = settings.value( "verbose_build" ).toBool();
     settings.endGroup();
 
     int size = settings.beginReadArray( "targets" );
     for ( int i = 0; i < size; ++i ) {
         settings.setArrayIndex( i );
+
         ProjectTarget target;
+        target.is_main = settings.value( "is_main" ).toBool();
         target.name = settings.value( "name" ).toString();
         target.files = settings.value( "files" ).toStringList();
         m_targets.append( target );
